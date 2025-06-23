@@ -4,37 +4,120 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Oria Dawn</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', cursive;
+      background: #d8fcd2;
+      color: #2c2c2c;
+    }
+
+    header {
+      background-color: #ffbde0;
+      color: #234d20;
+      text-align: center;
+      padding: 20px;
+      border-bottom: 4px solid #73d39c;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .pixel-portrait {
+      display: block;
+      margin: 20px auto;
+      width: 180px;
+      image-rendering: pixelated;
+      border: 4px solid #234d20;
+    }
+
+    section {
+      background-color: #fffef7;
+      border: 3px solid #ffbde0;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    h2 {
+      font-size: 14px;
+      color: #ff69b4;
+    }
+
+    p {
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 10px;
+      padding: 20px;
+      color: #666;
+    }
+
+    nav {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: #234d20;
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 10px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
+  <header>
     <h1>Oria Dawn</h1>
-    <img src="oria-dawn-pixel.png" alt="Oria Self Portrait" class="portrait" />
-    <p class="tagline">🌱 Musician, Gardener, Dreamer, Coder on the Chain</p>
-    <div class="nav">
-      <a href="#about">About</a>
-      <a href="#nfts">NFTs</a>
+    <nav>
+      <a href="#about">About</a> • 
+      <a href="#nfts">NFTs</a> • 
       <a href="#contact">Contact</a>
-    </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <img 
+      src="https://your-image-host.com/oria-dawn-pixel.png" 
+      alt="Oria Dawn pixel portrait" 
+      class="pixel-portrait"
+    />
 
     <section id="about">
-      <h2>About Me</h2>
-      <p>I blend melody and soil—composing music, tending gardens, and trading digital roots on blockchain. I believe creativity is cultivation.</p>
+      <h2>🌱 About Me</h2>
+      <p>I blend melody and soil — composing songs and cultivating gardens. Welcome to my pixel sanctuary.</p>
     </section>
 
     <section id="nfts">
-      <h2>Featured NFT</h2>
-      <p>🎨 <strong>I Was Not Supposed to Exist Like This</strong><br/>
-      A poetic rebellion minted on Zora.<br/>
-      <a href="https://zora.co/coin/base:0xd7eea0e776cec67b44cce757ba154a2989557070" target="_blank">View on Zora</a>
-      </p>
+      <h2>🌸 Featured NFT</h2>
+      <p><strong>“I Was Not Supposed to Bloom Here”</strong></p>
+      <p>A story told in pixels and petals. Part of the Dawn Collection, inspired by quiet resilience and sunrise gardens.</p>
     </section>
 
     <section id="contact">
-      <h2>Contact</h2>
-      <p>📧 Email: <a href="mailto:ameliabelardinelli@gmail.com">ameliabelardinelli@gmail.com</a><br/>
-         🌐 ENS: <strong>oria.eth</strong></p>
+      <h2>📬 Contact</h2>
+      <p>Email: <a href="mailto:oria@oria.dawn" style="color: #234d20;">oria@oria.dawn</a></p>
     </section>
   </div>
+
+  <footer>
+    © 2025 Oria Dawn • Musician, Gardener, Dreamer in Pixels
+  </footer>
 </body>
 </html>
