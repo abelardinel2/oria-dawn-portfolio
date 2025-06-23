@@ -7,43 +7,15 @@ body {
   image-rendering: pixelated;
 }
 
+canvas {
+  display: block;
+  margin: 20px auto;
+  border-radius: 8px;
+}
+
 .container {
   max-width: 700px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-}
-
-h1 {
-  color: #ff66a3;
-  font-size: 28px;
-  margin-top: 30px;
-}
-
-.portrait {
-  width: 120px;
-  height: 120px;
-  margin: 20px 0;
-  border-radius: 8px;
-  border: 3px solid #88e088;
-}
-
-.tagline {
-  font-size: 12px;
-  color: #444;
-  margin-bottom: 20px;
-}
-
-.nav a {
-  color: #007a5e;
-  margin: 0 12px;
-  text-decoration: none;
-}
-
-section {
-  margin-top: 30px;
-  background-color: #fff8fc;
-  border: 2px dashed #ffaec9;
-  padding: 16px;
-  border-radius: 10px;
 }
