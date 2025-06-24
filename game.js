@@ -1,19 +1,22 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 let flowerCount = 0;
+
+// Initial flower positions (you can add more)
 let flowers = [{ x: 50, y: 50, collected: false }];
 
-const flowerSound = new Audio('const flowerSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-chimes-bling-2342.mp3');'); // <-- Replace with correct path
+// Working flower sound
+const flowerSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-chimes-bling-2342.mp3');
 
 function drawFlower(flower) {
   if (!flower.collected) {
-    ctx.fillStyle = '#ff69b4'; // pink square
+    ctx.fillStyle = '#ff69b4'; // Pink square
     ctx.fillRect(flower.x, flower.y, 20, 20);
   }
 }
 
 function drawSparkle(x, y) {
-  ctx.fillStyle = '#fffacd'; // soft yellow sparkle
+  ctx.fillStyle = '#fffacd'; // Soft yellow sparkle
   for (let i = 0; i < 6; i++) {
     const offsetX = Math.random() * 10 - 5;
     const offsetY = Math.random() * 10 - 5;
@@ -24,9 +27,9 @@ function drawSparkle(x, y) {
 }
 
 function updateFlowerCount() {
-  const flowerLabel = document.querySelector('p');
+  const flowerLabel = document.querySelector('#flower-count');
   if (flowerLabel) {
-    flowerLabel.innerHTML = `Flowers: ${flowerCount}`;
+    flowerLabel.innerText = `Flowers: ${flowerCount}`;
   }
 }
 
@@ -59,5 +62,6 @@ function render() {
   flowers.forEach(drawFlower);
 }
 
+// Initial render
 render();
 updateFlowerCount();
