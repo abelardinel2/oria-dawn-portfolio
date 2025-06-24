@@ -2,138 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oria Dawn</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oria Dawn - Flower Garden</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Press Start 2P', cursive;
-      background: #d8fcd2;
-      color: #2c2c2c;
-    }
-
-    header {
-      background-color: #ffbde0;
-      color: #234d20;
+      padding: 0;
+      background: url('https://i.imgur.com/4YtX0dG.png') repeat; /* pixel pink cloud bg */
+      background-size: cover;
+      font-family: 'Pixel', sans-serif;
+      color: #fff;
       text-align: center;
-      padding: 20px;
-      border-bottom: 4px solid #73d39c;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 20px;
-    }
-
-    .container {
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    .pixel-portrait {
-      display: block;
-      margin: 20px auto;
-      width: 180px;
-      image-rendering: pixelated;
-      border: 4px solid #234d20;
-    }
-
-    section {
-      background-color: #fffef7;
-      border: 3px solid #ffbde0;
-      border-radius: 8px;
-      padding: 16px;
+    h1 {
       margin-top: 20px;
+      font-size: 2rem;
+      color: #ffe0f0;
+      text-shadow: 1px 1px #ff69b4;
     }
 
-    h2 {
-      font-size: 14px;
-      color: #ff69b4;
+    #gameCanvas {
+      margin-top: 20px;
+      border: 3px solid #ff69b4;
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
-    p {
-      font-size: 10px;
-      line-height: 1.6;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 10px;
-      padding: 20px;
-      color: #666;
-    }
-
-    nav {
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    nav a {
-      color: #234d20;
-      text-decoration: none;
-      margin: 0 10px;
-      font-size: 10px;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
+    #flower-count {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #fff5f7;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Oria Dawn</h1>
-    <nav>
-      <a href="#about">About</a> • 
-      <a href="#nfts">NFTs</a> • 
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+  <h1>🌸 Oria's Flower Garden 🌸</h1>
 
-  <div class="container">
-    <img 
-  src="61020B95-F868-4E66-A639-F32C193EB708.png" 
-  alt="Oria Dawn pixel portrait" 
-  class="pixel-portrait"/>
+  <canvas id="gameCanvas" width="320" height="240"></canvas>
+  <p id="flower-count">Flowers: 0</p>
 
-    <section id="about">
-      <h2>🌱 About Me</h2>
-      <p>I blend melody and soil — composing songs and cultivating gardens. Welcome to my pixel sanctuary.</p>
-    </section>
-
-    <section id="nfts">
-      <h2>🌸 Featured NFT</h2>
-      <p><strong>“I Was Not Supposed to Bloom Here”</strong></p>
-      <p>A story told in pixels and petals. Part of the Dawn Collection, inspired by quiet resilience and sunrise gardens.</p>
-    </section>
-
-    <section id="contact">
-      <h2>📬 Contact</h2>
-      <p>Email: <a href="mailto:oria@oria.dawn" style="color: #234d20;">oria@oria.dawn</a></p>
-    </section>
-  </div></section> <!-- closes contact -->
-
-</div> <!-- closes container -->
-
-<section id="game">
-  <h2>🎮 Collect Flowers</h2>
-  <canvas id="gameCanvas" width="300" height="300"></canvas>
-  <p>Flowers: <span id="flowerCount">0</span></p>
-  <p>Click the flower to collect it! Each flower triggers a color note 🌸🎵</p>
-</section>
-
-<script src="game.js"></script>
-
-<footer>
-  © 2025 Oria Dawn • Musician, Gardener, Dreamer
-</footer>
-
-<script src="game.js"></script>
-
-  <footer>
-    © 2025 Oria Dawn • Musician, Gardener, Dreamer in Pixels
-  </footer>
+  <script src="game.js"></script>
 </body>
 </html>
