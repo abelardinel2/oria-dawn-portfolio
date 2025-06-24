@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d');
 let flowerCount = 0;
 let flowers = [{ x: 50, y: 50, collected: false }];
 
-const flowerSound = new Audio('flower-sound.mp3'); // <-- Replace with correct path
+const flowerSound = new Audio('const flowerSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-chimes-bling-2342.mp3');'); // <-- Replace with correct path
 
 function drawFlower(flower) {
   if (!flower.collected) {
