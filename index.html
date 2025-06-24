@@ -2,45 +2,142 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Oria Dawn - Flower Garden</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oria's Flower Garden</title>
   <style>
     body {
+      font-family: 'Courier New', monospace;
+      background-color: #fffafc;
       margin: 0;
       padding: 0;
-      background: url('https://i.imgur.com/4YtX0dG.png') repeat; /* pixel pink cloud bg */
-      background-size: cover;
-      font-family: 'Pixel', sans-serif;
-      color: #fff;
-      text-align: center;
+      color: #333;
     }
 
     h1 {
-      margin-top: 20px;
-      font-size: 2rem;
-      color: #ffe0f0;
-      text-shadow: 1px 1px #ff69b4;
+      text-align: center;
+      color: #ff69b4;
+      text-shadow: 2px 2px #ffc0cb;
+      margin: 20px 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #game {
+      background: url('https://files.catbox.moe/8vbpup.png') repeat;
+      background-size: cover;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 30px auto;
     }
 
     #gameCanvas {
-      margin-top: 20px;
-      border: 3px solid #ff69b4;
-      background-color: rgba(255, 255, 255, 0.1);
+      border: 3px dashed #ff69b4;
+      background-color: rgba(255, 255, 255, 0.3);
     }
 
     #flower-count {
-      margin-top: 15px;
-      font-size: 1.2rem;
-      color: #fff5f7;
+      margin-top: 10px;
+      color: #fff;
+      font-weight: bold;
+      text-shadow: 1px 1px #ff69b4;
+    }
+
+    footer {
+      text-align: center;
+      margin: 40px 0;
+      color: #777;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
   <h1>🌸 Oria's Flower Garden 🌸</h1>
 
-  <canvas id="gameCanvas" width="320" height="240"></canvas>
-  <p id="flower-count">Flowers: 0</p>
+  <div class="container">
 
-  <script src="game.js"></script>
+    <section id="contact">
+      <h2>📫 Contact</h2>
+      <p>Email: <a href="mailto:oria@oria.dawn">oria@oria.dawn</a></p>
+    </section>
+
+    <section id="game">
+      <h2>🎮 Collect Flowers</h2>
+      <canvas id="gameCanvas" width="300" height="200"></canvas>
+      <p id="flower-count">Flowers: 0</p>
+    </section>
+
+    <footer>
+      © 2025 Oria Dawn • Musician, Gardener, Dreamer
+    </footer>
+
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    let flowerCount = 0;
+    let flowers = [{ x: 50, y: 50, collected: false }];
+
+    function drawFlower(flower) {
+      if (!flower.collected) {
+        ctx.fillStyle = '#ff69b4'; // pink square
+        ctx.fillRect(flower.x, flower.y, 20, 20);
+      }
+    }
+
+    function drawSparkle(x, y) {
+      ctx.fillStyle = '#fffacd'; // soft yellow sparkle
+      for (let i = 0; i < 6; i++) {
+        const offsetX = Math.random() * 10 - 5;
+        const offsetY = Math.random() * 10 - 5;
+        ctx.beginPath();
+        ctx.arc(x + offsetX, y + offsetY, 2, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+    }
+
+    function updateFlowerCount() {
+      const flowerLabel = document.getElementById('flower-count');
+      if (flowerLabel) {
+        flowerLabel.innerText = `Flowers: ${flowerCount}`;
+      }
+    }
+
+    canvas.addEventListener('click', function (event) {
+      const rect = canvas.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const clickY = event.clientY - rect.top;
+
+      flowers.forEach((flower) => {
+        if (
+          !flower.collected &&
+          clickX >= flower.x &&
+          clickX <= flower.x + 20 &&
+          clickY >= flower.y &&
+          clickY <= flower.y + 20
+        ) {
+          flower.collected = true;
+          flowerCount += 1;
+          drawSparkle(flower.x, flower.y);
+          updateFlowerCount();
+        }
+      });
+
+      render();
+    });
+
+    function render() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      flowers.forEach(drawFlower);
+    }
+
+    render();
+    updateFlowerCount();
+  </script>
 </body>
 </html>
