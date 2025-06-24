@@ -2,142 +2,91 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oria's Flower Garden</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oria Dawn</title>
   <style>
     body {
       font-family: 'Courier New', monospace;
-      background-color: #fffafc;
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-
-    h1 {
+      background-color: #fceff9;
+      color: #2c2c2c;
       text-align: center;
-      color: #ff69b4;
-      text-shadow: 2px 2px #ffc0cb;
-      margin: 20px 0;
+      padding: 20px;
     }
 
     .container {
-      max-width: 700px;
-      margin: 0 auto;
+      margin-top: 20px;
+      border: 3px solid #ff69b4;
+      background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
-      text-align: center;
-    }
-
-    #game {
-      background: url('https://files.catbox.moe/8vbpup.png') repeat;
-      background-size: cover;
-      padding: 20px;
-      border-radius: 10px;
-      margin: 30px auto;
-    }
-
-    #gameCanvas {
-      border: 3px dashed #ff69b4;
-      background-color: rgba(255, 255, 255, 0.3);
     }
 
     #flower-count {
-      margin-top: 10px;
-      color: #fff;
-      font-weight: bold;
-      text-shadow: 1px 1px #ff69b4;
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #fff5f7;
     }
 
-    footer {
-      text-align: center;
-      margin: 40px 0;
-      color: #777;
-      font-size: 0.9rem;
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #ff69b4;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .pixel-portrait {
+      width: 100px;
+      height: auto;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>🌸 Oria's Flower Garden 🌸</h1>
+
+  <header>
+    <h1>Oria Dawn</h1>
+    <nav>
+      <a href="#about">About</a> •
+      <a href="#nfts">NFTs</a> •
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
   <div class="container">
+    <img src="61020B95-F868-4E66-A639-F32C193EB708.png" alt="Oria Dawn pixel portrait" class="pixel-portrait" />
+
+    <section id="about">
+      <h2>🌱 About Me</h2>
+      <p>I blend melody and soil — composing songs and planting seeds. This is where my creativity blossoms.</p>
+    </section>
+
+    <section id="nfts">
+      <h2>🌸 Featured NFT</h2>
+      <p><strong>“I Was Not Supposed to Bloom Here”</strong></p>
+      <p>A story told in pixels and petals. Part code. Part feeling.</p>
+    </section>
 
     <section id="contact">
       <h2>📫 Contact</h2>
       <p>Email: <a href="mailto:oria@oria.dawn">oria@oria.dawn</a></p>
     </section>
-
-    <section id="game">
-      <h2>🎮 Collect Flowers</h2>
-      <canvas id="gameCanvas" width="300" height="200"></canvas>
-      <p id="flower-count">Flowers: 0</p>
-    </section>
-
-    <footer>
-      © 2025 Oria Dawn • Musician, Gardener, Dreamer
-    </footer>
-
   </div>
 
-  <script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    let flowerCount = 0;
-    let flowers = [{ x: 50, y: 50, collected: false }];
+  <section id="game">
+    <h2>🎮 Collect Flowers</h2>
+    <canvas id="gameCanvas" width="300" height="300"></canvas>
+    <p>Flowers: <span id="flowerCount">0</span></p>
+    <p>Click the flower to collect it! Each flower earns a point.</p>
+  </section>
 
-    function drawFlower(flower) {
-      if (!flower.collected) {
-        ctx.fillStyle = '#ff69b4'; // pink square
-        ctx.fillRect(flower.x, flower.y, 20, 20);
-      }
-    }
+  <script src="game.js"></script>
 
-    function drawSparkle(x, y) {
-      ctx.fillStyle = '#fffacd'; // soft yellow sparkle
-      for (let i = 0; i < 6; i++) {
-        const offsetX = Math.random() * 10 - 5;
-        const offsetY = Math.random() * 10 - 5;
-        ctx.beginPath();
-        ctx.arc(x + offsetX, y + offsetY, 2, 0, 2 * Math.PI);
-        ctx.fill();
-      }
-    }
+  <footer>
+    © 2025 Oria Dawn • Musician, Gardener, Dreamer
+  </footer>
 
-    function updateFlowerCount() {
-      const flowerLabel = document.getElementById('flower-count');
-      if (flowerLabel) {
-        flowerLabel.innerText = `Flowers: ${flowerCount}`;
-      }
-    }
-
-    canvas.addEventListener('click', function (event) {
-      const rect = canvas.getBoundingClientRect();
-      const clickX = event.clientX - rect.left;
-      const clickY = event.clientY - rect.top;
-
-      flowers.forEach((flower) => {
-        if (
-          !flower.collected &&
-          clickX >= flower.x &&
-          clickX <= flower.x + 20 &&
-          clickY >= flower.y &&
-          clickY <= flower.y + 20
-        ) {
-          flower.collected = true;
-          flowerCount += 1;
-          drawSparkle(flower.x, flower.y);
-          updateFlowerCount();
-        }
-      });
-
-      render();
-    });
-
-    function render() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      flowers.forEach(drawFlower);
-    }
-
-    render();
-    updateFlowerCount();
-  </script>
 </body>
 </html>
