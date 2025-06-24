@@ -6,41 +6,78 @@
   <title>Oria Dawn</title>
   <style>
     body {
-      font-family: 'Courier New', monospace;
-      background-color: #fceff9;
-      color: #2c2c2c;
+      font-family: 'Press Start 2P', monospace; /* Pixel font */
+      background-color: #2e8b57; /* Green background like a lush garden */
+      color: #fff;
       text-align: center;
       padding: 20px;
+      margin: 0;
     }
+
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
     .container {
       margin-top: 20px;
-      border: 3px solid #ff69b4;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 20px;
+      border: 4px solid #ff69b4; /* Pink border for pixel effect */
+      background-color: #f0e68c; /* Light yellow for a parchment effect */
+      padding: 15px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 4px 4px 0 #000; /* Pixelated shadow */
     }
 
-    #flower-count {
-      margin-top: 15px;
-      font-size: 1.2rem;
-      color: #fff5f7;
+    .pixel-portrait {
+      width: 120px; /* Slightly larger for detail */
+      height: auto;
+      border: 2px solid #000;
+      border-radius: 0; /* Remove rounding for pixel look */
+      image-rendering: pixelated; /* Ensures pixel art stays crisp */
     }
 
     nav a {
       margin: 0 10px;
       text-decoration: none;
       color: #ff69b4;
-      font-weight: bold;
+      font-size: 14px;
+      text-shadow: 1px 1px 0 #000;
     }
 
     nav a:hover {
       text-decoration: underline;
+      color: #ff1493;
     }
 
-    .pixel-portrait {
-      width: 100px;
-      height: auto;
-      border-radius: 10px;
+    #flower-count {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #fff5f7;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    section {
+      margin: 15px 0;
+      padding: 10px;
+      border: 2px dashed #ff69b4;
+    }
+
+    h1, h2 {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #d3d3d3;
+      text-shadow: 1px 1px 0 #000;
+    }
+
+    #gameCanvas {
+      border: 2px solid #000;
+      background-color: #9acd32; /* Green field for game */
+      image-rendering: pixelated;
     }
   </style>
 </head>
@@ -81,7 +118,53 @@
     <p>Click the flower to collect it! Each flower earns a point.</p>
   </section>
 
-  <script src="game.js"></script>
+  <script>
+    // Game logic will go here
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const flowerCountElement = document.getElementById('flowerCount');
+
+    let flowerCount = 0;
+    let flowerX = 150; // Starting x position
+    let flowerY = 150; // Starting y position
+
+    // Draw a simple pixelated flower
+    function drawFlower(x, y) {
+      ctx.fillStyle = '#ff69b4'; // Petals
+      ctx.fillRect(x - 5, y - 10, 10, 10); // Top petal
+      ctx.fillRect(x - 10, y - 5, 10, 10); // Left petal
+      ctx.fillRect(x + 5, y - 5, 10, 10); // Right petal
+      ctx.fillRect(x - 5, y, 10, 10); // Bottom petal
+      ctx.fillStyle = '#ffff00'; // Center
+      ctx.fillRect(x - 2, y - 2, 4, 4); // Flower center
+    }
+
+    // Initial draw
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawFlower(flowerX, flowerY);
+    }
+
+    // Handle click event
+    canvas.addEventListener('click', (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const clickY = event.clientY - rect.top;
+
+      // Check if click is near the flower (simple collision detection)
+      if (Math.abs(clickX - flowerX) < 10 && Math.abs(clickY - flowerY) < 10) {
+        flowerCount++;
+        flowerCountElement.textContent = flowerCount;
+        // Move flower to a new random position
+        flowerX = Math.random() * (canvas.width - 20) + 10;
+        flowerY = Math.random() * (canvas.height - 20) + 10;
+        draw();
+      }
+    });
+
+    // Start the game
+    draw();
+  </script>
 
   <footer>
     © 2025 Oria Dawn • Musician, Gardener, Dreamer
