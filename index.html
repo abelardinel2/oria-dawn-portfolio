@@ -5,47 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Oria Dawn</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
     body {
-      font-family: 'Press Start 2P', monospace; /* Pixel font */
-      background-color: #2e8b57; /* Green background like a lush garden */
+      font-family: 'Press Start 2P', monospace;
+      background-color: #2e8b57;
       color: #fff;
       text-align: center;
       padding: 20px;
       margin: 0;
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
     .container {
       margin-top: 20px;
-      border: 4px solid #ff69b4; /* Pink border for pixel effect */
-      background-color: #f0e68c; /* Light yellow for a parchment effect */
+      border: 4px solid #ff69b4;
+      background-color: #f5e27c; /* Better contrast yellow */
+      color: #4b2e2e;            /* More readable text */
       padding: 15px;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
-      box-shadow: 4px 4px 0 #000; /* Pixelated shadow */
+      box-shadow: 4px 4px 0 #000;
     }
 
     .pixel-portrait {
-      width: 120px; /* Slightly larger for detail */
+      width: 120px;
       height: auto;
       border: 2px solid #000;
-      border-radius: 0; /* Remove rounding for pixel look */
-      image-rendering: pixelated; /* Ensures pixel art stays crisp */
-    }
-
-    nav a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #ff69b4;
-      font-size: 14px;
-      text-shadow: 1px 1px 0 #000;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-      color: #ff1493;
+      border-radius: 0;
+      image-rendering: pixelated;
     }
 
     #flower-count {
@@ -76,19 +64,20 @@
 
     #gameCanvas {
       border: 2px solid #000;
-      background-color: #9acd32; /* Green field for game */
+      background-color: #9acd32;
       image-rendering: pixelated;
     }
   </style>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="lofi-loop.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 </head>
+
 <body>
   <header>
     <h1>Oria Dawn</h1>
-    <nav>
-      <a href="#about">About</a> •
-      <a href="#nfts">NFTs</a> •
-      <a href="#contact">Contact</a>
-    </nav>
   </header>
 
   <div class="container">
@@ -119,51 +108,46 @@
   </section>
 
   <script>
-    // Game logic will go here
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const flowerCountElement = document.getElementById('flowerCount');
 
     let flowerCount = 0;
-    let flowerX = 150; // Starting x position
-    let flowerY = 150; // Starting y position
+    let flowerX = 150;
+    let flowerY = 150;
 
-    // Draw a simple pixelated flower
     function drawFlower(x, y) {
-      ctx.fillStyle = '#ff69b4'; // Petals
-      ctx.fillRect(x - 5, y - 10, 10, 10); // Top petal
-      ctx.fillRect(x - 10, y - 5, 10, 10); // Left petal
-      ctx.fillRect(x + 5, y - 5, 10, 10); // Right petal
-      ctx.fillRect(x - 5, y, 10, 10); // Bottom petal
-      ctx.fillStyle = '#ffff00'; // Center
-      ctx.fillRect(x - 2, y - 2, 4, 4); // Flower center
+      ctx.fillStyle = '#ff69b4';
+      ctx.fillRect(x - 5, y - 10, 10, 10);
+      ctx.fillRect(x - 10, y - 5, 10, 10);
+      ctx.fillRect(x + 5, y - 5, 10, 10);
+      ctx.fillRect(x - 5, y, 10, 10);
+      ctx.fillStyle = '#ffff00';
+      ctx.fillRect(x - 2, y - 2, 4, 4);
     }
 
-    // Initial draw
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       drawFlower(flowerX, flowerY);
     }
 
-    // Handle click event
     canvas.addEventListener('click', (event) => {
       const rect = canvas.getBoundingClientRect();
       const clickX = event.clientX - rect.left;
       const clickY = event.clientY - rect.top;
 
-      // Check if click is near the flower (simple collision detection)
       if (Math.abs(clickX - flowerX) < 10 && Math.abs(clickY - flowerY) < 10) {
         flowerCount++;
         flowerCountElement.textContent = flowerCount;
-        // Move flower to a new random position
         flowerX = Math.random() * (canvas.width - 20) + 10;
         flowerY = Math.random() * (canvas.height - 20) + 10;
+        sparkleEffect(flowerX, flowerY);
         draw();
       }
     });
 
-    // Start the game
-    draw();
+    sparkleEffect(flowerX, flowerY);
+        draw();
   </script>
 
   <footer>
