@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oria’s Garden</title>
+    <style>
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background: #f7e4e8;
+            color: #ff9999;
+            text-align: center;
+            padding: 20px;
+        }
+        #gardenGrid {
+            display: grid;
+            grid-template-columns: repeat(5, 50px);
+            gap: 5px;
+            margin: 20px auto;
+            width: 260px;
+        }
+        .tile {
+            width: 50px;
+            height: 50px;
+            background: #d9ead3;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .bloom {
+            background: #a9dfbf;
+            border-radius: 50%;
+            animation: bloomAnimation 0.5s ease-out;
+        }
+        @keyframes bloomAnimation {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+        .tile:hover { background: #e6b0aa; }
+        #score { font-size: 18px; color: #ff9999; }
+        #message { margin-top: 10px; color: #a9dfbf; }
+        .back-btn { color: #ff9999; text-decoration: underline; }
+        .back-btn:hover { color: #a9dfbf; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Welcome to Oria’s Garden</h1>
+    <p>Poetry, Pixels, and Petals.</p>
+    <div id="score">Flowers Planted: <span id="flowerCount">0</span>/10</div>
+    <div id="message"></div>
+    <div id="gardenGrid"></div>
+    <a href="/" class="back-btn">Back to Oria Dawn</a>
 
+    <script>
+        const grid = document.getElementById('gardenGrid');
+        const flowerCount = document.getElementById('flowerCount');
+        const message = document.getElementById('message');
+        let blooms = JSON.parse(localStorage.getItem('blooms')) || new Array(25).fill(false);
+        const targetFlowers = 10;
+
+        // Initialize grid
+        for (let i = 0; i < 25; i++) {
+            const tile = document.createElement('div');
+            tile.classList.add('tile');
+            if (blooms[i]) tile.classList.add('bloom');
+            tile.addEventListener('click', () => plantFlower(i));
+            grid.appendChild(tile);
+        }
+
+        // Plant flower function
+        function plantFlower(index) {
+            blooms[index] = !blooms[index];
+            const tile = grid.children[index];
+            tile.classList.toggle('bloom');
+            const count = blooms.filter(b => b).length;
+            flowerCount.textContent = count;
+            localStorage.setItem('blooms', JSON.stringify(blooms));
+
+            // Check goal
+            if (count >= targetFlowers) {
+                message.textContent = "Garden Complete! 🌸 NFT Minting Soon...";
+                message.style.color = '#a9dfbf';
+            } else {
+                message.textContent = `Plant ${targetFlowers - count} more flowers!`;
+            }
+        }
+
+        // Initial message
+        plantFlower(-1); // Trigger initial count and message
+    </script>
+</body>
+</html>
