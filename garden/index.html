@@ -4,87 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Oria Dawn Blooming Garden</title>
-  <style>
-    body {
-      background: #FFFACD;
-      font-family: 'Pixelify Sans', sans-serif;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    .garden {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-    .plant {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-      position: relative;
-      cursor: pointer;
-      transition: transform 0.3s;
-      font-size: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .plant:hover {
-      transform: scale(1.1);
-    }
-    .stage-seed {
-      background: #8B4513; /* Brown */
-    }
-    .stage-bloom {
-      background: #FFD700; /* Gold */
-    }
-    button {
-      background: linear-gradient(#FFB6C1, #FFA07A);
-      border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background: linear-gradient(#FF69B4, #FFA07A);
-    }
-    h1 {
-      color: #FF69B4;
-      text-shadow: 1px 1px #fff;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Oria Dawn Blooming Garden</h1>
+  <p>Poetry, Pixels, Petals — and Magic ✨</p>
   <div class="garden" id="garden">
     <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
     <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
     <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
   </div>
-  <button onclick="waterAll()">Use Watering Can</button>
-
-  <script>
-    let tools = ['watering-can'];
-
-    function useTool(tool, plant) {
-      if (tool === 'watering-can' && plant.classList.contains('stage-seed')) {
-        waterPlant(plant);
-      }
-    }
-
-    function waterPlant(plant) {
-      plant.classList.remove('stage-seed');
-      plant.classList.add('stage-bloom');
-      plant.innerHTML = '🌻';
-    }
-
-    function waterAll() {
-      const seeds = document.querySelectorAll('.plant.stage-seed');
-      seeds.forEach(plant => useTool('watering-can', plant));
-    }
-  </script>
+  <button onclick="waterAll()">💧 Water All Plants</button>
+  <audio id="bloom-sound" src="assets/bloom-chime.mp3" preload="auto"></audio>
+  <script src="script.js"></script>
 </body>
 </html>
