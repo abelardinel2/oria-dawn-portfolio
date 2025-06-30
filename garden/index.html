@@ -3,231 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oria’s Garden</title>
+    <title>Oria Dawn Garden Game</title>
     <style>
-        body {
-            font-family: 'Press Start 2P', monospace;
-            background: linear-gradient(135deg, #f7e4e8, #d9ead3);
-            color: #ff9999;
-            text-align: center;
-            padding: 20px;
-            overflow-x: hidden;
-            position: relative;
-        }
-        /* Particle background */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png'), radial-gradient(circle at 20% 20%, rgba(255, 153, 153, 0.1) 0%, transparent 70%);
-            opacity: 0.2;
-            z-index: -1;
-            animation: float 10s infinite linear;
-        }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-        #gardenGrid {
-            display: grid;
-            grid-template-columns: repeat(5, 60px);
-            gap: 10px;
-            margin: 20px auto;
-            width: 320px;
-            border: 2px solid #ff9999;
-            padding: 10px;
-            background: rgba(255, 153, 153, 0.1);
-            border-radius: 10px;
-        }
-        .tile {
-            width: 60px;
-            height: 60px;
-            background: url('https://i.imgur.com/Zk8jX0s.png') no-repeat center #d9ead3; /* Placeholder flower bud */
-            background-size: contain;
-            cursor: url('https://i.imgur.com/5aH2z2C.png'), auto;
-            transition: all 0.3s ease;
-            border: 2px dashed #e6b0aa;
-        }
-        .bloom {
-            background: url('https://i.imgur.com/7kL2m4o.png') no-repeat center #a9dfbf; /* Placeholder bloom */
-            background-size: contain;
-            border-radius: 50%;
-            animation: bloomAnimation 0.5s ease-out, sparkle 1s infinite;
-            box-shadow: 0 0 15px #a9dfbf;
-        }
-        @keyframes bloomAnimation {
-            from { transform: scale(0); }
-            to { transform: scale(1); }
-        }
-        @keyframes sparkle {
-            0% { box-shadow: 0 0 5px #a9dfbf; }
-            50% { box-shadow: 0 0 20px #ff9999; }
-            100% { box-shadow: 0 0 5px #a9dfbf; }
-        }
-        .tile:hover {
-            background-color: #e6b0aa;
-            transform: scale(1.1);
-        }
-        #score {
-            font-size: 20px;
-            color: #ff9999;
-            text-shadow: 2px 2px #a9dfbf;
-        }
-        #progress {
-            width: 200px;
-            height: 20px;
-            background: #d9ead3;
-            border: 2px solid #ff9999;
-            margin: 10px auto;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        #progress-bar {
-            height: 100%;
-            background: #a9dfbf;
-            width: 0%;
-            transition: width 0.5s;
-        }
-        #message {
-            margin-top: 15px;
-            color: #a9dfbf;
-            font-size: 16px;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        .back-btn {
-            color: #ff9999;
-            text-decoration: underline;
-            font-size: 14px;
-            padding: 5px 10px;
-            border: 1px solid #ff9999;
-            border-radius: 5px;
-        }
-        .back-btn:hover {
-            color: #a9dfbf;
-            background: #ff9999;
-            text-shadow: 1px 1px #d9ead3;
-        }
-        #powerup {
-            margin-top: 10px;
-            padding: 5px 10px;
-            background: #ff9999;
-            color: #d9ead3;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #powerup:hover {
-            background: #e6b0aa;
-        }
-        #powerup.active {
-            background: #a9dfbf;
-            animation: glow 1s infinite;
-        }
-        @keyframes glow {
-            0% { box-shadow: 0 0 5px #a9dfbf; }
-            50% { box-shadow: 0 0 15px #ff9999; }
-            100% { box-shadow: 0 0 5px #a9dfbf; }
-        }
+        body { background: #003c00; color: #fff; font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .garden { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .plant { width: 50px; height: 50px; background: #FFE4E1; border-radius: 50%; cursor: pointer; }
+        .plant:hover { background: #90EE90; }
+        button { background: #E6E6FA; border: none; border-radius: 15px; padding: 10px; cursor: pointer; }
+        button:hover { background: #DDA0DD; }
+        .loading { text-align: center; padding: 20px; }
+        @media (max-width: 600px) { .garden { width: 100%; font-size: 14px; } }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Welcome to Oria’s Garden</h1>
-    <p>Poetry, Pixels, and Petals.</p>
-    <div id="score">Flowers Planted: <span id="flowerCount">0</span>/10</div>
-    <div id="progress"><div id="progress-bar"></div></div>
-    <div id="message"></div>
-    <div id="gardenGrid"></div>
-    <button id="powerup">Use Water Can (x2)</button>
-    <a href="/" class="back-btn">Back to Oria Dawn</a>
+    <h1>Oria Dawn Garden</h1>
+    <div class="garden" id="garden">
+        <div class="loading">Loading garden...</div>
+    </div>
+    <button onclick="applyPowerUp()">Boost Growth</button>
+    <button onclick="resetGarden()">Reset Garden</button>
 
     <script>
-        const grid = document.getElementById('gardenGrid');
-        const flowerCount = document.getElementById('flowerCount');
-        const message = document.getElementById('message');
-        const progressBar = document.getElementById('progress-bar');
-        const powerup = document.getElementById('powerup');
-        let blooms = JSON.parse(localStorage.getItem('blooms')) || new Array(25).fill(false);
-        let powerupActive = false;
-        let powerupTimeout;
-        const targetFlowers = 10;
-
-        // Initialize grid
-        for (let i = 0; i < 25; i++) {
-            const tile = document.createElement('div');
-            tile.classList.add('tile');
-            if (blooms[i]) tile.classList.add('bloom');
-            tile.addEventListener('click', () => plantFlower(i));
-            grid.appendChild(tile);
-        }
-
-        // Plant flower function with power-up
-        function plantFlower(index) {
-            if (powerupActive && !blooms[index]) {
-                blooms[index] = true; // Plant immediately if power-up is active
-                grid.children[index].classList.add('bloom');
-                updateScore(2); // Double points
-                playSound('https://www.soundjay.com/buttons/beep-02.mp3'); // Power-up sound
-            } else if (!blooms[index]) {
-                blooms[index] = true;
-                grid.children[index].classList.add('bloom');
-                updateScore(1);
-                playSound('https://www.soundjay.com/buttons/beep-01a.mp3'); // Regular sound
-            }
-
-            localStorage.setItem('blooms', JSON.stringify(blooms));
-        }
-
-        // Update score and progress
-        function updateScore(points) {
-            let count = parseInt(flowerCount.textContent) + points;
-            flowerCount.textContent = count;
-            progressBar.style.width = (count / targetFlowers * 100) + '%';
-
-            if (count >= targetFlowers) {
-                message.textContent = "Garden Mastered! 🌸 Mint Your NFT Soon!";
-                message.style.color = '#a9dfbf';
-                message.style.textShadow = '2px 2px #ff9999';
-            } else {
-                message.textContent = `Plant ${targetFlowers - count} more flowers!`;
+        function initializeGarden() {
+            const garden = document.getElementById('garden');
+            garden.innerHTML = ''; // Clear loading
+            for (let i = 0; i < 5; i++) {
+                const plant = document.createElement('div');
+                plant.className = 'plant';
+                plant.onclick = waterPlant;
+                garden.appendChild(plant);
             }
         }
+        initializeGarden();
 
-        // Power-up activation
-        powerup.addEventListener('click', () => {
-            if (!powerupActive) {
-                powerupActive = true;
-                powerup.classList.add('active');
-                message.textContent = "Water Can Active! Double Flowers for 10s!";
-                playSound('https://www.soundjay.com/misc/water-drip-01.mp3');
-                powerup.disabled = true;
-
-                powerupTimeout = setTimeout(() => {
-                    powerupActive = false;
-                    powerup.classList.remove('active');
-                    message.textContent = `Plant ${targetFlowers - parseInt(flowerCount.textContent)} more flowers!`;
-                    powerup.disabled = false;
-                }, 10000); // 10 seconds
-            }
-        });
-
-        // Play sound function
-        function playSound(url) {
-            const audio = new Audio(url);
-            audio.play().catch(() => console.log("Audio blocked"));
+        function waterPlant(event) {
+            event.target.style.background = '#90EE90';
+            alert('Plant watered!');
         }
 
-        // Initial message
-        updateScore(0); // Trigger initial count and progress
+        function applyPowerUp() {
+            const plants = document.querySelectorAll('.plant');
+            plants.forEach(plant => plant.style.transform = 'scale(1.5)');
+        }
+
+        function resetGarden() {
+            if (confirm('Reset garden? This cannot be undone.')) {
+                initializeGarden();
+            }
+        }
     </script>
 </body>
 </html>
