@@ -3,54 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oria Dawn Garden Game</title>
+    <title>Oria Dawn Blooming Garden</title>
     <style>
-        body { background: #003c00; color: #fff; font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        body { background: #FFFACD; font-family: 'Pixelify Sans', sans-serif; margin: 0; padding: 20px; }
         .garden { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        .plant { width: 50px; height: 50px; background: #FFE4E1; border-radius: 50%; cursor: pointer; }
-        .plant:hover { background: #90EE90; }
-        button { background: #E6E6FA; border: none; border-radius: 15px; padding: 10px; cursor: pointer; }
-        button:hover { background: #DDA0DD; }
-        .loading { text-align: center; padding: 20px; }
+        .plant { width: 50px; height: 50px; background: #90EE90; border-radius: 10px; position: relative; animation: grow 2s infinite alternate; cursor: pointer; }
+        @keyframes grow { from { transform: scale(1); } to { transform: scale(1.2); } }
+        .stage-seed { background: #8B4513; }
+        .stage-bloom { background: #FFD700; }
+        button { background: linear-gradient(#FFB6C1, #FFA07A); border: none; border-radius: 20px; padding: 10px; cursor: pointer; }
+        button:hover { background: linear-gradient(#FF69B4, #FFA07A); }
+        h1 { color: #FF69B4; text-shadow: 1px 1px #fff; }
         @media (max-width: 600px) { .garden { width: 100%; font-size: 14px; } }
     </style>
 </head>
 <body>
-    <h1>Oria Dawn Garden</h1>
+    <h1>Oria Dawn Blooming Garden</h1>
     <div class="garden" id="garden">
-        <div class="loading">Loading garden...</div>
+        <div class="plant stage-seed" onclick="waterPlant(this)">🌱</div>
+        <div class="plant stage-seed" onclick="waterPlant(this)">🌱</div>
+        <div class="plant stage-seed" onclick="waterPlant(this)">🌱</div>
     </div>
-    <button onclick="applyPowerUp()">Boost Growth</button>
-    <button onclick="resetGarden()">Reset Garden</button>
+    <button>Water with Can</button>
 
     <script>
-        function initializeGarden() {
-            const garden = document.getElementById('garden');
-            garden.innerHTML = ''; // Clear loading
-            for (let i = 0; i < 5; i++) {
-                const plant = document.createElement('div');
-                plant.className = 'plant';
-                plant.onclick = waterPlant;
-                garden.appendChild(plant);
+        function waterPlant(plant) {
+            if (plant.classList.contains('stage-seed')) {
+                plant.classList.remove('stage-seed');
+                plant.classList.add('stage-bloom');
+                plant.innerHTML = '🌻';
+                alert('Plant bloomed!');
             }
         }
-        initializeGarden();
-
-        function waterPlant(event) {
-            event.target.style.background = '#90EE90';
-            alert('Plant watered!');
-        }
-
-        function applyPowerUp() {
-            const plants = document.querySelectorAll('.plant');
-            plants.forEach(plant => plant.style.transform = 'scale(1.5)');
-        }
-
-        function resetGarden() {
-            if (confirm('Reset garden? This cannot be undone.')) {
-                initializeGarden();
-            }
-        }
+        document.querySelector('button').onclick = () => {
+            document.querySelectorAll('.plant.stage-seed').forEach(plant => waterPlant(plant));
+        };
     </script>
 </body>
 </html>
