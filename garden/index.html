@@ -6,130 +6,85 @@
   <title>Oria Dawn Blooming Garden</title>
   <style>
     body {
-      background: linear-gradient(135deg, #f7e4e8, #d9ead3);
-      font-family: 'Press Start 2P', cursive;
-      color: #ff69b4;
+      background: #FFFACD;
+      font-family: 'Pixelify Sans', sans-serif;
+      margin: 0;
+      padding: 20px;
       text-align: center;
-      padding: 40px;
     }
     .garden {
-      display: grid;
-      grid-template-columns: repeat(3, 60px);
-      gap: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
       justify-content: center;
-      margin: 20px auto;
+      margin-bottom: 20px;
     }
     .plant {
-      width: 60px;
-      height: 60px;
-      background: #8B4513;
-      border-radius: 8px;
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s;
+      font-size: 24px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
-      cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
     }
     .plant:hover {
       transform: scale(1.1);
-      box-shadow: 0 0 10px #ff69b4;
     }
     .stage-seed {
-      background: #8B4513;
+      background: #8B4513; /* Brown */
     }
     .stage-bloom {
-      background: #ffd1dc;
-      box-shadow: 0 0 10px #ff69b4;
-      animation: sparkle 2s infinite;
-    }
-    @keyframes sparkle {
-      0%, 100% { box-shadow: 0 0 10px #ff69b4; }
-      50% { box-shadow: 0 0 20px #a9dfbf; }
+      background: #FFD700; /* Gold */
     }
     button {
       background: linear-gradient(#FFB6C1, #FFA07A);
       border: none;
       border-radius: 20px;
       padding: 10px 20px;
-      font-family: 'Press Start 2P', cursive;
       cursor: pointer;
-      margin-top: 20px;
+      font-size: 16px;
     }
     button:hover {
       background: linear-gradient(#FF69B4, #FFA07A);
-      color: white;
     }
     h1 {
       color: #FF69B4;
-      text-shadow: 2px 2px #fff;
-    }
-    #progress {
-      margin-top: 15px;
-      color: #a9dfbf;
-    }
-    #message {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #ff69b4;
+      text-shadow: 1px 1px #fff;
     }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
   <h1>Oria Dawn Blooming Garden</h1>
-  <p>Plant seeds, bloom flowers, and dream in pixels.</p>
-  <div id="progress">Blooms: 0/9</div>
-  <div class="garden" id="garden"></div>
-  <button onclick="waterAll()">💧 Water All</button>
-  <div id="message"></div>
+  <div class="garden" id="garden">
+    <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
+    <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
+    <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
+  </div>
+  <button onclick="waterAll()">Use Watering Can</button>
 
   <script>
-    const garden = document.getElementById('garden');
-    const progress = document.getElementById('progress');
-    const message = document.getElementById('message');
-    const totalPlants = 9;
-    let states = JSON.parse(localStorage.getItem('garden')) || new Array(totalPlants).fill('seed');
+    let tools = ['watering-can'];
 
-    function updateProgress() {
-      const bloomed = states.filter(s => s === 'bloom').length;
-      progress.textContent = `Blooms: ${bloomed}/${totalPlants}`;
-      if (bloomed === totalPlants) {
-        message.textContent = "All flowers are blooming! 🌸✨";
-      } else {
-        message.textContent = `Keep watering!`;
+    function useTool(tool, plant) {
+      if (tool === 'watering-can' && plant.classList.contains('stage-seed')) {
+        waterPlant(plant);
       }
     }
 
-    function waterPlant(index) {
-      if (states[index] === 'seed') {
-        states[index] = 'bloom';
-        localStorage.setItem('garden', JSON.stringify(states));
-        renderGarden();
-        // Optional bloom sound
-        // new Audio('https://www.soundjay.com/buttons/button-3.mp3').play();
-      }
+    function waterPlant(plant) {
+      plant.classList.remove('stage-seed');
+      plant.classList.add('stage-bloom');
+      plant.innerHTML = '🌻';
     }
 
     function waterAll() {
-      states = states.map(() => 'bloom');
-      localStorage.setItem('garden', JSON.stringify(states));
-      renderGarden();
+      const seeds = document.querySelectorAll('.plant.stage-seed');
+      seeds.forEach(plant => useTool('watering-can', plant));
     }
-
-    function renderGarden() {
-      garden.innerHTML = '';
-      states.forEach((state, index) => {
-        const plant = document.createElement('div');
-        plant.className = `plant stage-${state}`;
-        plant.textContent = state === 'seed' ? '🌱' : '🌸';
-        plant.onclick = () => waterPlant(index);
-        garden.appendChild(plant);
-      });
-      updateProgress();
-    }
-
-    renderGarden();
   </script>
 </body>
 </html>
