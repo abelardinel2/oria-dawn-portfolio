@@ -1,30 +1,98 @@
 body {
-  font-family: 'Press Start 2P', cursive;
-  background-color: #f0ffe5;
-  color: #2d2d2d;
-  margin: 0;
-  padding: 0;
-  image-rendering: pixelated;
+    font-family: 'Press Start 2P', monospace;
+    background: linear-gradient(135deg, #f7e4e8, #d9ead3);
+    color: #ff9999;
+    text-align: center;
+    padding: 20px;
+    overflow-x: hidden;
 }
 
-canvas {
-  display: block;
-  margin: 20px auto;
-  border-radius: 8px;
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    opacity: 0.1;
+    z-index: -1;
 }
 
-.container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-}@keyframes popUp {
-  0% {
-    transform: scale(0.5);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-30px) scale(1.2);
-    opacity: 0;
-  }
+#gardenGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 60px);
+    gap: 10px;
+    margin: 20px auto;
+    width: 320px;
+    border: 2px solid #ff9999;
+    padding: 10px;
+    background: rgba(255, 153, 153, 0.1);
+    border-radius: 10px;
+}
+
+.tile {
+    width: 60px;
+    height: 60px;
+    background: #d9ead3;
+    cursor: url('https://i.imgur.com/5aH2z2C.png'), auto;
+    transition: all 0.3s ease;
+    border: 2px dashed #e6b0aa;
+}
+
+.bloom {
+    background: radial-gradient(circle, #a9dfbf, #d9ead3);
+    border-radius: 50%;
+    animation: bloomAnimation 0.5s ease-out, sparkle 1s infinite;
+    box-shadow: 0 0 10px #a9dfbf;
+}
+
+@keyframes bloomAnimation {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+@keyframes sparkle {
+    0% { box-shadow: 0 0 5px #a9dfbf; }
+    50% { box-shadow: 0 0 15px #ff9999; }
+    100% { box-shadow: 0 0 5px #a9dfbf; }
+}
+
+.tile:hover {
+    background: #e6b0aa;
+    transform: scale(1.1);
+}
+
+#score {
+    font-size: 20px;
+    color: #ff9999;
+    text-shadow: 2px 2px #a9dfbf;
+}
+
+#message {
+    margin-top: 15px;
+    color: #a9dfbf;
+    font-size: 16px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.back-btn {
+    color: #ff9999;
+    text-decoration: underline;
+    font-size: 14px;
+    padding: 5px 10px;
+    border: 1px solid #ff9999;
+    border-radius: 5px;
+}
+
+.back-btn:hover {
+    color: #a9dfbf;
+    background: #ff9999;
+    text-shadow: 1px 1px #d9ead3;
 }
