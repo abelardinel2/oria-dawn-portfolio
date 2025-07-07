@@ -3,19 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oria Dawn Blooming Garden</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Oria’s Garden 🌿</title>
+  <link rel="stylesheet" href="garden.css"/>
 </head>
 <body>
-  <h1>Oria Dawn Blooming Garden</h1>
-  <p>Poetry, Pixels, Petals — and Magic ✨</p>
-  <div class="garden" id="garden">
-    <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
-    <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
-    <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
-  </div>
-  <button onclick="waterAll()">💧 Water All Plants</button>
-  <audio id="bloom-sound" src="assets/bloom-chime.mp3" preload="auto"></audio>
-  <script src="script.js"></script>
+  <h1>Welcome to Oria’s Garden 🌸</h1>
+  <p>Click to plant flowers and grow your pixel paradise!</p>
+  <div id="gardenGrid"></div>
+  <p id="score">Flowers Planted: <span id="flowerCount">0</span> / 10</p>
+  <p id="message"></p>
+  <a href="index.html" class="back-btn">⬅ Back to Oria Dawn</a>
+
+  <script src="garden.js"></script>
 </body>
 </html>
