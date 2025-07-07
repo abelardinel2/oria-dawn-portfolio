@@ -17,7 +17,8 @@ p {
 }
 
 img.portrait {
-  width: 250px;
+  width: 90%;
+  max-width: 300px;
   height: auto;
   border-radius: 12px;
   margin: 20px auto;
