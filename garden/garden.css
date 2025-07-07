@@ -1,0 +1,68 @@
+body {
+  font-family: monospace;
+  text-align: center;
+  background: linear-gradient(to bottom, #e0f7e9, #ffe6f0);
+  padding: 40px 20px;
+}
+
+h1 {
+  color: #d63384;
+}
+
+#gardenGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  gap: 10px;
+  justify-content: center;
+  margin: 30px auto;
+}
+
+.tile {
+  width: 60px;
+  height: 60px;
+  background: #b2dfdb;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.tile:hover {
+  transform: scale(1.1);
+  background: #80cbc4;
+}
+
+.bloom {
+  background: radial-gradient(circle, #f06292, #ec407a);
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ec407a;
+  animation: bloom 0.4s ease-out;
+}
+
+@keyframes bloom {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+#score {
+  font-weight: bold;
+  color: #388e3c;
+}
+
+#message {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 30px;
+  text-decoration: none;
+  background: #ffb6c1;
+  color: #333;
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+
+.back-btn:hover {
+  background: #ffa6b5;
+}
