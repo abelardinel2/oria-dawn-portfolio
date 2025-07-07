@@ -1,1 +1,1 @@
-// For future interactive scripts
+console.log("Welcome to Oria Dawn 🌸");
