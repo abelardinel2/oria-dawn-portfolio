@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Oria Dawn Blooming Garden</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Oria Dawn Blooming Garden</h1>
+  <p>Poetry, Pixels, Petals — and Magic ✨</p>
+  <div class="garden" id="garden">
+    <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
+    <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
+    <div class="plant stage-seed" onclick="useTool('watering-can', this)">🌱</div>
+  </div>
+  <button onclick="waterAll()">💧 Water All Plants</button>
+  <audio id="bloom-sound" src="assets/bloom-chime.mp3" preload="auto"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
