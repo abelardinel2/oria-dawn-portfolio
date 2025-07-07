@@ -18,7 +18,7 @@ p {
 
 img.portrait {
   width: 90%;
-  max-width: 300px;
+  max-width: 350px;
   height: auto;
   border-radius: 12px;
   margin: 20px auto;
@@ -41,6 +41,7 @@ img.portrait {
   border-radius: 10px;
   font-weight: bold;
   display: inline-block;
+  transition: background 0.3s;
 }
 
 .btn:hover {
