@@ -1,48 +1,53 @@
 body {
-  background: linear-gradient(to bottom, #d0f0c0, #ffe6f0);
-  font-family: 'Courier New', monospace;
+  font-family: monospace;
   text-align: center;
-  padding: 20px;
-  color: #333;
+  background: linear-gradient(to bottom, #d5f5d5, #ffe6e6);
+  margin: 0;
+  padding: 40px 20px;
 }
 
 h1 {
-  color: #ff69b4;
+  color: #d63384;
   font-size: 2em;
 }
 
-.portrait img {
-  width: 200px;
-  border: 5px solid #ff69b4;
-  border-radius: 10px;
-  margin: 20px auto;
+p {
+  font-size: 1.1em;
+  color: #444;
 }
 
-.nav-buttons {
+img.portrait {
+  width: 250px;
+  height: auto;
+  border-radius: 12px;
+  margin: 20px auto;
+  display: block;
+}
+
+.nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
   margin: 20px 0;
 }
 
-.nav-buttons a {
+.btn {
   background: #ffb6c1;
   color: #333;
-  padding: 10px 20px;
-  border-radius: 25px;
   text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
   font-weight: bold;
-  transition: background 0.3s;
+  display: inline-block;
 }
 
-.nav-buttons a:hover {
-  background: #ff69b4;
-  color: #fff;
+.btn:hover {
+  background: #ffa6b5;
 }
 
 footer {
-  margin-top: 30px;
-  color: #777;
+  margin-top: 40px;
   font-size: 0.9em;
+  color: #555;
 }
