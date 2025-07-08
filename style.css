@@ -19,14 +19,13 @@ p {
   color: #333;
 }
 
-img.portrait {
+.portrait {
   width: 100%;
   max-width: 350px;
   height: auto;
   border-radius: 12px;
   margin: 20px auto;
   display: block;
-  object-fit: cover;
 }
 
 .nav {
