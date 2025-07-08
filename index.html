@@ -3,23 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oria Dawn 🌸</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Oria Dawn</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: #2ecc71; /* pixel garden green */
+      font-family: 'Press Start 2P', monospace;
+      text-align: center;
+      color: #ff69b4;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px #000;
+    }
+    .portrait {
+      width: 200px;
+      border: 4px solid #000;
+      image-rendering: pixelated;
+    }
+    nav {
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn {
+      background: #f5f5dc;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #000;
+      border: 2px solid #000;
+      display: inline-block;
+      font-size: 12px;
+    }
+    .btn:hover {
+      background: #ffe6f0;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Oria Dawn 🌸</h1>
-  <p>Poetry, Pixels & Petals — your magical pixel garden 🌿</p>
+  <h1>Oria Dawn</h1>
+  <img src="images/oria_dawn_cleaned_strict.png" alt="Oria Dawn Portrait" class="portrait"/>
 
-  <img src="oria_dawn_cleaned_strict.png" alt="Oria Dawn Portrait" class="portrait"/>
-
-  <nav class="nav" role="navigation" aria-label="Main navigation">
+  <nav>
     <a href="about.html" class="btn">About</a>
     <a href="nfts.html" class="btn">NFTs</a>
+    <a href="contact.html" class="btn">Contact</a>
+    <a href="garden/index.html" class="btn">Garden Game</a>
     <a href="projects.html" class="btn">Projects</a>
     <a href="prompt-engineering.html" class="btn">Prompt Engineering</a>
-    <a href="garden/index.html" class="btn">Garden Game</a>
   </nav>
 
-  <footer>🌸 Oria Dawn — A Web3 Pixel Garden 🌿</footer>
+  <p>🌸 Poetry, Pixels & Petals — your magical pixel garden 🌿</p>
 </body>
 </html>
