@@ -1,40 +1,54 @@
 body {
-  font-family: 'Press Start 2P', monospace;
-  background: linear-gradient(135deg, #f7e4e8, #d9ead3);
-  color: #d63384;
+  font-family: monospace;
   text-align: center;
-  padding: 20px;
+  background: linear-gradient(to bottom, #d5f5d5, #ffe6e6);
+  margin: 0;
+  padding: 40px 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 h1 {
-  margin-top: 20px;
+  color: #d63384;
+  font-size: clamp(1.5em, 5vw, 2em);
 }
 
-.portrait {
-  max-width: 300px;
+p {
+  font-size: clamp(1em, 3vw, 1.1em);
+  color: #333;
+}
+
+img.portrait {
   width: 100%;
+  max-width: 350px;
+  height: auto;
   border-radius: 12px;
   margin: 20px auto;
   display: block;
+  object-fit: cover;
 }
 
 .nav {
-  margin: 30px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
+  margin: 20px auto;
+  max-width: 400px;
 }
 
 .btn {
   background: #ffb6c1;
   color: #222;
   text-decoration: none;
-  padding: 12px 20px;
+  padding: 10px 18px;
   border-radius: 10px;
   font-weight: bold;
   display: inline-block;
   transition: background 0.3s, transform 0.2s;
+  flex: 1 1 100%;
+  max-width: 200px;
 }
 
 .btn:hover {
@@ -43,6 +57,13 @@ h1 {
 }
 
 footer {
-  margin-top: 40px;
-  color: #555;
+  margin-top: auto;
+  font-size: 0.9em;
+  color: #444;
+}
+
+@media (min-width: 600px) {
+  .btn {
+    flex: 1 1 45%;
+  }
 }
