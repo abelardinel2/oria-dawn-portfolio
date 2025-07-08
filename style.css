@@ -3,46 +3,27 @@ body {
   background: linear-gradient(135deg, #f7e4e8, #d9ead3);
   color: #d63384;
   text-align: center;
-  margin: 0;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1;
+  padding: 20px;
 }
 
 h1 {
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-  margin: 0 0 10px;
-}
-
-p {
-  font-size: 1.1rem;
-  color: #333;
-}
-
-.portrait-wrap {
-  max-width: 300px;
-  margin: 20px auto;
+  margin-top: 20px;
 }
 
 .portrait {
+  max-width: 300px;
   width: 100%;
-  height: auto;
   border-radius: 12px;
-  box-shadow: 0 0 10px #d63384;
+  margin: 20px auto;
+  display: block;
 }
 
 .nav {
+  margin: 30px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
-  margin: 30px auto;
-  max-width: 500px;
+  gap: 12px;
 }
 
 .btn {
@@ -62,7 +43,6 @@ p {
 }
 
 footer {
-  font-size: 0.9rem;
+  margin-top: 40px;
   color: #555;
-  margin-top: auto;
 }
