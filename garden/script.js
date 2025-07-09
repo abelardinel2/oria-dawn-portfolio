@@ -1,20 +1,17 @@
-let tools = ['watering-can'];
+// Garden Game Canvas code
+const canvas = document.getElementById("gardenCanvas");
+if (canvas) {
+  const ctx = canvas.getContext("2d");
+  let flowers = [];
 
-function useTool(tool, plant) {
-  if (tool === 'watering-can' && plant.classList.contains('stage-seed')) {
-    waterPlant(plant);
-  }
-}
-
-function waterPlant(plant) {
-  plant.classList.remove('stage-seed');
-  plant.classList.add('stage-bloom');
-  plant.innerHTML = '🌻';
-  document.getElementById('bloom-sound').play();
-}
-
-function waterAll() {
-  document.querySelectorAll('.plant.stage-seed').forEach(plant => {
-    useTool('watering-can', plant);
+  canvas.addEventListener("click", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    flowers.push({ x, y });
+    ctx.fillStyle = "#d63384";
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, 2 * Math.PI);
+    ctx.fill();
   });
 }
