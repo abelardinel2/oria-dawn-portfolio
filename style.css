@@ -1,5 +1,5 @@
 body {
-  background: #2ecc71; /* garden green */
+  background: linear-gradient(to bottom, #f7e4e8, #2ecc71);
   font-family: 'Press Start 2P', monospace;
   text-align: center;
   color: #ff69b4;
@@ -13,14 +13,8 @@ h1 {
 }
 
 h2 {
-  color: #000;
+  color: #ff69b4;
   margin-top: 30px;
-}
-
-.portrait {
-  width: 200px;
-  border: 4px solid #000;
-  image-rendering: pixelated;
 }
 
 nav {
@@ -32,21 +26,56 @@ nav {
 }
 
 .btn {
-  background: #f5f5dc;
+  background: #ffb6c1;
   padding: 10px 20px;
   text-decoration: none;
   color: #000;
   border: 2px solid #000;
   display: inline-block;
   font-size: 12px;
+  border-radius: 8px;
 }
 
 .btn:hover {
   background: #ffe6f0;
+  transform: scale(1.05);
 }
 
 p {
   color: #000;
   max-width: 600px;
   margin: 20px auto;
+}
+
+.portrait {
+  width: 200px;
+  border: 4px solid #000;
+  image-rendering: pixelated;
+  position: relative;
+  display: inline-block;
+}
+
+.portrait::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('../images/sparkles.png') repeat;
+  animation: sparkle 4s linear infinite;
+  top: 0;
+  left: 0;
+}
+
+@keyframes sparkle {
+  from { background-position: 0 0; }
+  to { background-position: 100% 100%; }
+}
+
+a {
+  color: #ff69b4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
