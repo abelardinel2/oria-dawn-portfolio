@@ -9,20 +9,17 @@ function createPetals() {
   }
 }
 
-// Typewriter effect for poems
-function typeWriter(text, elementId, speed = 50) {
-  let i = 0;
-  const element = document.getElementById(elementId);
-  element.innerHTML = "";
-  function type() {
-    if (i < text.length) {
-      element.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type, speed);
-    }
-  }
-  type();
+// Real-time date and time
+function updateDateTime() {
+  const now = new Date();
+  const options = {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'
+  };
+  const dateTimeString = now.toLocaleString('en-US', options).replace(/,/, '');
+  document.getElementById("dateTime").textContent = `Current Time: ${dateTimeString} EDT`;
 }
+setInterval(updateDateTime, 1000);
 
 // Prompt demo
 const responses = {
@@ -52,18 +49,6 @@ if (mintBtn && window.ethereum) {
   mintBtn.textContent = "Install MetaMask";
 }
 
-// Real-time date and time
-function updateDateTime() {
-  const now = new Date();
-  const options = {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-    hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short'
-  };
-  const dateTimeString = now.toLocaleString('en-US', options).replace(/,/, '');
-  document.getElementById("dateTime")?.textContent = `Current Time: ${dateTimeString} EDT`;
-}
-setInterval(updateDateTime, 1000);
-
 // Garden flower counter
 let flowerCount = 0;
 const plantBtn = document.getElementById("plantBtn");
@@ -81,13 +66,5 @@ if (plantBtn) {
 // Initialize on load
 window.onload = () => {
   createPetals();
-  if (document.getElementById("poem1")) {
-    const poem1Text = document.getElementById("poem1").innerHTML;
-    const poem2Text = document.getElementById("poem2").innerHTML;
-    document.getElementById("poem1").innerHTML = "";
-    document.getElementById("poem2").innerHTML = "";
-    typeWriter(poem1Text, "poem1");
-    setTimeout(() => typeWriter(poem2Text, "poem2"), 5000);
-  }
   updateDateTime();
 };
