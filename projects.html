@@ -1,30 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oria Dawn Projects</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Projects built in Oria’s Garden: Web3 bots and more.">
+  <title>Projects in Oria’s Garden 🌸</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Projects 🌱</h1>
-  </header>
-
-  <section class="projects">
-    <h2>What I’ve Built</h2>
-    <div class="project">
-      <h3>Whale Tracker Bot</h3>
-      <p>A Telegram bot tracking large whale movements across the blockchain.</p>
-    </div>
-    <div class="project">
-      <h3>SEC Insider Flow Bot</h3>
-      <p>Tracks insider trading via SEC data, built with FastAPI & Python.</p>
-    </div>
-  </section>
-
-  <nav class="nav">
-    <a href="index.html" class="btn">Home</a>
-  </nav>
+  <script>
+    document.write('<div id="header"></div>');
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+  </script>
+  <main>
+    <section class="projects">
+      <h2>Projects 🌱</h2>
+      <h3>What I’ve Built</h3>
+      <div class="project">
+        <h4>Whale Tracker Bot</h4>
+        <p>A Telegram bot tracking large whale movements across the blockchain.</p>
+        <a href="https://github.com/yourprofile/whale-tracker" class="btn">View on GitHub</a>
+      </div>
+      <div class="project">
+        <h4>SEC Insider Flow Bot</h4>
+        <p>Tracks insider trading via SEC data, built with FastAPI & Python.</p>
+        <a href="https://github.com/yourprofile/sec-insider-flow" class="btn">View on GitHub</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    document.write('<div id="footer"></div>');
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+  </script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
