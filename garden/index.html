@@ -3,19 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Garden Game</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Oria’s Garden Game 🌸</title>
+  <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-  <h1>Oria’s Garden Game 🌸</h1>
-  <p>Click inside the garden to plant a pixel flower!</p>
+  <h1>Oria’s Garden Game 🌿</h1>
+  <p>Click a tile to plant flowers and grow your garden!</p>
 
-  <canvas id="gardenCanvas" width="400" height="300"></canvas>
+  <div id="gardenGrid"></div>
+
+  <div id="score">Flowers Planted: <span id="flowerCount">0</span>/10</div>
+  <div id="message"></div>
 
   <nav>
     <a href="../index.html" class="btn">Home</a>
   </nav>
 
-  <script src="../js/scripts.js" defer></script>
+  <audio id="bloomSound" src="../sounds/bloom-chime.mp3" preload="auto"></audio>
+
+  <script>
+    const grid = document.getElementById('gardenGrid');
+    const flowerCount = document.getElementById('flowerCount');
+    const message = document.getElementById('message');
+    const bloomSound = document.getElementById('bloomSound');
+
+    let blooms = JSON.parse(localStorage.getItem('blooms')) || new Array(25).fill(false);
+    const targetFlowers = 10;
+
+    // Create 5x5 grid
+    for (let i = 0; i < 25; i++) {
+      const tile = document.createElement('div');
+      tile.classList.add('tile');
+      if (blooms[i]) tile.classList.add('bloom');
+      tile.addEventListener('click', () => plantFlower(i));
+      grid.appendChild(tile);
+    }
+
+    function plantFlower(index) {
+      if (index >= 0) {
+        blooms[index] = !blooms[index];
+        const tile = grid.children[index];
+        tile.classList.toggle('bloom');
+        bloomSound.currentTime = 0;
+        bloomSound.play().catch(e => console.log("Sound blocked"));
+      }
+
+      const count = blooms.filter(b => b).length;
+      flowerCount.textContent = count;
+      localStorage.setItem('blooms', JSON.stringify(blooms));
+
+      if (count >= targetFlowers) {
+        message.textContent = "Garden Complete! 🌸";
+      } else {
+        message.textContent = `Plant ${targetFlowers - count} more flowers!`;
+      }
+    }
+
+    // Initial message
+    plantFlower(-1);
+  </script>
+
+  <style>
+    #gardenGrid {
+      display: grid;
+      grid-template-columns: repeat(5, 50px);
+      gap: 5px;
+      margin: 20px auto;
+      width: 270px;
+    }
+    .tile {
+      width: 50px;
+      height: 50px;
+      background: #d9ead3;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .bloom {
+      background: #a9dfbf;
+      border-radius: 50%;
+    }
+  </style>
 </body>
 </html>
