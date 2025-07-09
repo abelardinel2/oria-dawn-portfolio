@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Oria’s Garden Game</title>
-  <link rel="stylesheet" href="garden.css" />
+  <link rel="stylesheet" href="../css/style.css"/>
 </head>
 <body>
-  <h1>🌸 Oria’s Garden Game 🌸</h1>
-  <p>Plant flowers & grow your pixel garden</p>
+  <header>
+    <h1>Oria’s Garden Game</h1>
+  </header>
 
-  <div id="gardenGrid"></div>
+  <section class="garden">
+    <p>Click to plant flowers and watch them bloom!</p>
+    <canvas id="gardenCanvas" width="400" height="300"></canvas>
+  </section>
 
-  <audio id="bloomSound" src="bloom-chime.mp3"></audio>
+  <script src="../js/scripts.js"></script>
 
-  <script src="garden.js"></script>
+  <nav class="nav">
+    <a href="../index.html" class="btn">Home</a>
+  </nav>
 </body>
 </html>
