@@ -1,124 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oria’s Garden Game 🌸</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/style.css" />
-  <style>
-    body {
-      background: #2ecc71; /* garden green */
-      font-family: 'Press Start 2P', monospace;
-      text-align: center;
-      color: #ff69b4;
-      padding: 20px;
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px #000;
-    }
-    p {
-      color: #fff;
-      margin-bottom: 20px;
-    }
-    #gardenGrid {
-      display: grid;
-      grid-template-columns: repeat(5, 50px);
-      gap: 5px;
-      margin: 20px auto;
-      width: 270px;
-    }
-    .tile {
-      width: 50px;
-      height: 50px;
-      background: #d9ead3;
-      cursor: pointer;
-      border: 2px solid #000;
-      transition: all 0.3s;
-    }
-    .tile:hover {
-      background: #b2f2bb;
-    }
-    .bloom {
-      background: #ff69b4;
-      border-radius: 50%;
-    }
-    nav {
-      margin: 30px auto;
-    }
-    .btn {
-      background: #f5f5dc;
-      padding: 10px 20px;
-      text-decoration: none;
-      color: #000;
-      border: 2px solid #000;
-      display: inline-block;
-      font-size: 10px;
-    }
-    .btn:hover {
-      background: #ffe6f0;
-    }
-    #score, #message {
-      margin-top: 20px;
-      color: #fff;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plant flowers in Oria’s Garden game.">
+  <title>Oria’s Garden 🌸</title>
+  <link rel="stylesheet" href="../style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Oria’s Garden Game 🌿</h1>
-  <p>Click to plant flowers and watch them bloom!</p>
-
-  <div id="gardenGrid"></div>
-
-  <div id="score">Flowers Planted: <span id="flowerCount">0</span>/10</div>
-  <div id="message"></div>
-
-  <nav>
-    <a href="../index.html" class="btn">Back Home</a>
-  </nav>
-
-  <audio id="bloomSound" src="../sounds/bloom-chime.mp3" preload="auto"></audio>
-
   <script>
-    const grid = document.getElementById('gardenGrid');
-    const flowerCount = document.getElementById('flowerCount');
-    const message = document.getElementById('message');
-    const bloomSound = document.getElementById('bloomSound');
-
-    let blooms = JSON.parse(localStorage.getItem('blooms')) || new Array(25).fill(false);
-    const targetFlowers = 10;
-
-    for (let i = 0; i < 25; i++) {
-      const tile = document.createElement('div');
-      tile.classList.add('tile');
-      if (blooms[i]) tile.classList.add('bloom');
-      tile.addEventListener('click', () => plantFlower(i));
-      grid.appendChild(tile);
-    }
-
-    function plantFlower(index) {
-      if (index >= 0) {
-        blooms[index] = !blooms[index];
-        const tile = grid.children[index];
-        tile.classList.toggle('bloom');
-        bloomSound.currentTime = 0;
-        bloomSound.play().catch(e => console.log("Sound blocked"));
-      }
-
-      const count = blooms.filter(b => b).length;
-      flowerCount.textContent = count;
-      localStorage.setItem('blooms', JSON.stringify(blooms));
-
-      if (count >= targetFlowers) {
-        message.textContent = "Garden Complete! 🌸";
+    document.write('<div id="header"></div>');
+    fetch('../header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+  </script>
+  <main>
+    <section class="garden">
+      <h2>Welcome to Oria’s Garden</h2>
+      <p>Poetry, Pixels, and Petals.</p>
+      <p>Flowers Planted: <span id="flowerCount">0</span>/10</p>
+      <button id="plantBtn" class="btn">Plant a Flower</button>
+      <a href="../index.html" class="btn">Back to Oria Dawn</a>
+    </section>
+  </main>
+  <script>
+    document.write('<div id="footer"></div>');
+    fetch('../footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+  </script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+  <script src="../script.js"></script>
+  <script>
+    let flowerCount = 0;
+    document.getElementById("plantBtn").addEventListener("click", () => {
+      if (flowerCount < 10) {
+        flowerCount++;
+        document.getElementById("flowerCount").textContent = flowerCount;
       } else {
-        message.textContent = `Plant ${targetFlowers - count} more flowers!`;
+        alert("Garden is full! 🌸");
       }
-    }
-
-    plantFlower(-1);
+    });
   </script>
 </body>
 </html>
