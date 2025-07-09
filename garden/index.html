@@ -4,11 +4,71 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Oria’s Garden Game 🌸</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    body {
+      background: #2ecc71; /* garden green */
+      font-family: 'Press Start 2P', monospace;
+      text-align: center;
+      color: #ff69b4;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px #000;
+    }
+    p {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    #gardenGrid {
+      display: grid;
+      grid-template-columns: repeat(5, 50px);
+      gap: 5px;
+      margin: 20px auto;
+      width: 270px;
+    }
+    .tile {
+      width: 50px;
+      height: 50px;
+      background: #d9ead3;
+      cursor: pointer;
+      border: 2px solid #000;
+      transition: all 0.3s;
+    }
+    .tile:hover {
+      background: #b2f2bb;
+    }
+    .bloom {
+      background: #ff69b4;
+      border-radius: 50%;
+    }
+    nav {
+      margin: 30px auto;
+    }
+    .btn {
+      background: #f5f5dc;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #000;
+      border: 2px solid #000;
+      display: inline-block;
+      font-size: 10px;
+    }
+    .btn:hover {
+      background: #ffe6f0;
+    }
+    #score, #message {
+      margin-top: 20px;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
   <h1>Oria’s Garden Game 🌿</h1>
-  <p>Click a tile to plant flowers and grow your garden!</p>
+  <p>Click to plant flowers and watch them bloom!</p>
 
   <div id="gardenGrid"></div>
 
@@ -16,7 +76,7 @@
   <div id="message"></div>
 
   <nav>
-    <a href="../index.html" class="btn">Home</a>
+    <a href="../index.html" class="btn">Back Home</a>
   </nav>
 
   <audio id="bloomSound" src="../sounds/bloom-chime.mp3" preload="auto"></audio>
@@ -30,7 +90,6 @@
     let blooms = JSON.parse(localStorage.getItem('blooms')) || new Array(25).fill(false);
     const targetFlowers = 10;
 
-    // Create 5x5 grid
     for (let i = 0; i < 25; i++) {
       const tile = document.createElement('div');
       tile.classList.add('tile');
@@ -59,29 +118,7 @@
       }
     }
 
-    // Initial message
     plantFlower(-1);
   </script>
-
-  <style>
-    #gardenGrid {
-      display: grid;
-      grid-template-columns: repeat(5, 50px);
-      gap: 5px;
-      margin: 20px auto;
-      width: 270px;
-    }
-    .tile {
-      width: 50px;
-      height: 50px;
-      background: #d9ead3;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .bloom {
-      background: #a9dfbf;
-      border-radius: 50%;
-    }
-  </style>
 </body>
 </html>
