@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oria Dawn NFTs</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Oria’s Digital Blooms: NFT art on Zora.">
+  <title>Oria’s Digital Blooms 🌸</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>Oria’s Digital Blooms 🌸</h1>
-  </header>
-
-  <section class="nfts">
-    <h2>My NFTs</h2>
-    <div class="nft-gallery">
-      <div class="nft">
-        <img src="images/nft-flower.png" alt="AI-generated NFT flower"/>
-        <p>Oria’s Petal #001</p>
-        <a href="https://zora.co/" class="btn">View on Zora</a>
+  <script>
+    document.write('<div id="header"></div>');
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+  </script>
+  <main>
+    <section class="nfts">
+      <h2>Oria’s NFTs: Digital Blooms on Zora</h2>
+      <div class="nft-gallery">
+        <div class="nft">
+          <img src="images/nft-art1.png" alt="Pixel Flower NFT inspired by Oria"/>
+          <p>Oria’s Petal #001</p>
+          <p>Prompt: "Design a 32x32 pixel-art flower inspired by Oria with pastel colors."</p>
+          <a href="https://zora.co/@oria" class="btn">View on Zora</a>
+        </div>
+        <div class="nft">
+          <img src="images/nft-art2.png" alt="Pixel Petal NFT inspired by Oria"/>
+          <p>Oria’s Petal #002</p>
+          <p>Prompt: "Create a 32x32 pixel-art petal with glowing effects for an NFT."</p>
+          <a href="https://zora.co/@oria" class="btn">View on Zora</a>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <nav class="nav">
-    <a href="index.html" class="btn">Home</a>
-  </nav>
+      <button id="mintBtn" class="btn">Connect Wallet to Mint</button>
+    </section>
+  </main>
+  <script>
+    document.write('<div id="footer"></div>');
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+  </script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
