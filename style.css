@@ -1,57 +1,140 @@
 body {
-  background: #d5f5d5;
-  font-family: 'Press Start 2P', monospace;
+  font-family: 'Press Start 2P', cursive;
+  background: url('images/pixel-garden-bg.png') repeat, linear-gradient(135deg, #f0e6ff, #ffe6f0);
+  color: #333;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+header {
   text-align: center;
-  color: #d63384;
   padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 4px solid #d63384;
 }
-
-h1, h2, h3 {
-  text-shadow: 2px 2px #000;
+header img.portrait {
+  max-width: 200px;
+  border: 4px solid #d63384;
+  border-radius: 10px;
 }
-
-.portrait {
-  width: 200px;
-  border: 3px solid #000;
+h1 {
+  font-size: clamp(1.5em, 5vw, 2em);
+  color: #d63384;
+  text-shadow: 2px 2px #fff;
 }
-
+h2, h3, h4 {
+  color: #d63384;
+}
 .nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin: 20px auto;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.8);
 }
-
 .btn {
-  background: #ffb6c1;
-  color: #000;
+  background: #d63384;
+  color: #fff;
   padding: 10px 20px;
-  border: 2px solid #000;
   text-decoration: none;
-  display: inline-block;
+  border-radius: 5px;
+  transition: transform 0.2s;
 }
-
 .btn:hover {
-  background: #ffa6b5;
+  transform: scale(1.1);
 }
-
-.nft-gallery, .projects {
+main {
+  flex: 1;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 20px auto;
+  padding: 0 20px;
 }
-
+.about, .poems, .nfts, .projects, .prompt-engineering, .contact, .garden {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.poem {
+  margin: 15px 0;
+  padding: 15px;
+  border-left: 4px solid #d63384;
+  font-style: italic;
+}
+.nft-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+}
 .nft img {
-  width: 150px;
-  border: 2px solid #000;
+  width: 100%;
+  border: 2px solid #d63384;
+  border-radius: 8px;
 }
-
-input {
-  padding: 8px;
+.nft p {
+  margin: 10px 0;
+  color: #333;
+}
+.project {
+  margin: 15px 0;
+  padding: 15px;
+  border-left: 4px solid #d63384;
+}
+blockquote {
+  background: #f5f5f5;
+  padding: 15px;
+  border-left: 4px solid #d63384;
+  border-radius: 8px;
+  font-style: italic;
   margin: 10px 0;
 }
-
-#gardenCanvas {
-  border: 2px solid #000;
-  background: #fff;
+.prompt-tool {
+  margin-top: 20px;
+}
+#promptInput {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #d63384;
+  border-radius: 8px;
+}
+#result {
+  margin-top: 15px;
+  color: #d63384;
+  font-style: italic;
+}
+.garden #flowerCount {
+  color: #d63384;
+  font-weight: bold;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-top: 4px solid #d63384;
+}
+#dateTime {
+  color: #d63384;
+  font-size: 0.8em;
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+/* Petal animation */
+@keyframes fall {
+  0% { transform: translateY(-100vh) rotate(0deg); }
+  100% { transform: translateY(100vh) rotate(360deg); }
+}
+.petal {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #d63384;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  animation: fall 10s linear infinite;
 }
