@@ -1,16 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  ...
-  <title>Contact 🌸</title>
-  ...
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Oria’s Garden for collaboration or inquiries.">
+  <title>Contact Oria’s Garden 🌸</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Contact Oria</h1>
-  <img src="images/oria_dawn_cleaned_strict.png" alt="Oria Dawn" class="portrait" />
-  <nav> ...same nav... </nav>
+  <script>
+    document.write('<div id="header"></div>');
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('header').innerHTML = data);
+  </script>
   <main>
-    <p>Email: yourname@example.com<br>Follow me on X / GitHub</p>
+    <section class="contact">
+      <h2>Contact Oria</h2>
+      <p>Oria Dawn</p>
+      <p>Email: yourname@example.com</p>
+      <p>Follow me on:</p>
+      <a href="https://x.com/oria" class="btn">X</a>
+      <a href="https://github.com/yourprofile" class="btn">GitHub</a>
+      <a href="https://zora.co/@oria" class="btn">Zora</a>
+    </section>
   </main>
+  <script>
+    document.write('<div id="footer"></div>');
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+  </script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
