@@ -9,12 +9,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <script>
-    document.write('<div id="header"></div>');
-    fetch('../header.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('header').innerHTML = data);
-  </script>
+  <header>
+    <h1>Welcome to Oria’s Garden 🌸</h1>
+    <p>Poetry, Pixels & Petals — A magical Web3 garden inspired by Oria 🌿</p>
+    <img src="../images/oria-portrait.png" alt="Oria’s AI-generated portrait" class="portrait"/>
+  </header>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="../about.html" class="btn">About</a>
+    <a href="../nfts.html" class="btn">NFTs</a>
+    <a href="../contact.html" class="btn">Contact</a>
+    <a href="index.html" class="btn">Garden</a>
+    <a href="../projects.html" class="btn">Projects</a>
+    <a href="../prompt-engineering.html" class="btn">Prompt Engineering</a>
+  </nav>
   <main>
     <section class="garden">
       <h2>Welcome to Oria’s Garden</h2>
@@ -24,12 +31,10 @@
       <a href="../index.html" class="btn">Back to Oria Dawn</a>
     </section>
   </main>
-  <script>
-    document.write('<div id="footer"></div>');
-    fetch('../footer.html')
-      .then(response => response.text())
-      .then(data => document.getElementById('footer').innerHTML = data);
-  </script>
+  <footer>
+    <p>🌸 Oria’s Garden — Nurturing AI, code, and art in a Web3 pixel garden 🌿</p>
+    <p id="dateTime">Current Time: [Loading...]</p>
+  </footer>
   <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
   <script src="../script.js"></script>
   <script>
