@@ -1,43 +1,63 @@
-const gameCanvas = document.getElementById('gameCanvas');
-const oria = document.getElementById('oria');
-const plant = document.getElementById('plant');
-const flower = document.getElementById('flower');
-const smog = document.getElementById('smog');
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = 600;
+canvas.height = 400;
+
 const hud = document.getElementById('hud');
 const status = document.getElementById('status');
-const plantBtn = document.getElementById('plantBtn');
-const waterBtn = document.getElementById('waterBtn');
+const scoreDisplay = document.getElementById('scoreDisplay');
+const startBtn = document.getElementById('startBtn');
 const resetBtn = document.getElementById('resetBtn');
+const difficultySelect = document.getElementById('difficulty');
+const plantSound = document.getElementById('plantSound');
+const winSound = document.getElementById('winSound');
+const loseSound = document.getElementById('loseSound');
+const bgMusic = document.getElementById('bgMusic');
 
+let oria = { x: 50, y: canvas.height / 2, width: 32, height: 32, frame: 0 };
+let plants = [];
+let flowers = [];
+let smogWidth = 0;
 let timeLeft = 30;
 let waterUses = 0;
 let seedsLeft = 5;
+let score = 0;
 let gameInterval;
 let gameActive = false;
+let difficulty = 'medium';
+let smogSpeed = 1;
 
-plantBtn.addEventListener('click', () => {
-  if (!gameActive && seedsLeft > 0) {
-    gameActive = true;
-    seedsLeft--;
-    hud.textContent = `Seeds Left: 🌱 x ${seedsLeft}\nSmog Approaching → ${100 - ((30 - timeLeft) / 30) * 100}%`;
-    plantBtn.classList.add('hidden');
-    waterBtn.classList.remove('hidden');
-    plant.style.fontSize = '30px';
-    startGame();
-  } else if (seedsLeft === 0) {
-    endGame(false); // End game if no seeds left
-  }
+// Load Images
+const oriaImg = new Image();
+oriaImg.src = '../images/Oria-pixel.png'; // 32x32 Oria holding flower
+const flowerStage1Img = new Image();
+flowerStage1Img.src = '../images/flower-stage1.png'; // 16x16 tiny sprout with soil
+const flowerStage2Img = new Image();
+flowerStage2Img.src = '../images/flower-stage2.png'; // 16x16 Oria holding blooming flower
+const flowerStage3Img = new Image();
+flowerStage3Img.src = '../images/flower-stage3.png'; // 16x16 big glowing flower
+const healthyTreeImg = new Image();
+healthyTreeImg.src = '../images/Healthy-trees.png'; // 16x16 healthy green trees
+const smogCloudImg = new Image();
+smogCloudImg.src = '../images/Smog-cloud.png'; // 32x32 dark smog cloud
+const smogOverTreesImg = new Image();
+smogOverTreesImg.src = '../images/Smog-over-trees.png'; // 16x16 smog-covered trees
+const bgForestImg = new Image();
+bgForestImg.src = '../images/bg-forest.png'; // Looping pixel forest backdrop
+
+// Background
+let background = ctx.createLinearGradient(0, 0, 0, canvas.height);
+background.addColorStop(0, '#c1e1c1');
+background.addColorStop(1, '#e0f7e9');
+
+difficultySelect.addEventListener('change', (e) => {
+  difficulty = e.target.value;
+  setDifficulty();
 });
 
-waterBtn.addEventListener('click', () => {
-  if (waterUses < 3 && gameActive) {
-    waterUses++;
-    status.textContent = `Time Left: ${timeLeft}s | Water Uses: ${waterUses}/3`;
-    flower.style.opacity = waterUses / 3;
-    flower.style.fontSize = `${30 + waterUses * 10}px`;
-    if (waterUses === 3) {
-      endGame(true); // Win condition
-    }
+startBtn.addEventListener('click', () => {
+  if (!gameActive) {
+    startGame();
   }
 });
 
@@ -45,48 +65,32 @@ resetBtn.addEventListener('click', () => {
   resetGame();
 });
 
-function startGame() {
-  gameInterval = setInterval(() => {
-    timeLeft--;
-    const smogWidth = ((30 - timeLeft) / 30) * 100;
-    smog.style.width = `${smogWidth}%`;
-    hud.textContent = `Seeds Left: 🌱 x ${seedsLeft}\nSmog Approaching → ${100 - smogWidth}%`;
-    status.textContent = `Time Left: ${timeLeft}s | Water Uses: ${waterUses}/3`;
-
-    // Check lose condition: smog overtakes and no seeds left
-    if (timeLeft <= 0 || (smogWidth >= 80 && seedsLeft === 0)) {
-      endGame(false);
+canvas.addEventListener('click', (e) => {
+  if (gameActive) {
+    const rect = canvas.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const clickY = e.clientY - rect.top;
+    if (clickX > oria.x && clickX < oria.x + oria.width && Math.abs(clickY - oria.y) < oria.height / 2 && seedsLeft > 0) {
+      plantSeed();
     }
-  }, 1000);
-}
+  }
+});
 
-function endGame(won) {
-  clearInterval(gameInterval);
-  gameActive = false;
-  waterBtn.classList.add('hidden');
-  resetBtn.classList.remove('hidden');
-  if (won) {
-    status.textContent = "You saved the garden! 🌸 Play again?";
-    flower.style.opacity = 1;
-    smog.style.width = '0%'; // Clear smog on win
-  } else {
-    status.textContent = "The smog won... 🌫️ Try again?";
-    flower.style.opacity = 0;
+function setDifficulty() {
+  switch (difficulty) {
+    case 'easy':
+      seedsLeft = 6;
+      smogSpeed = 0.8;
+      break;
+    case 'medium':
+      seedsLeft = 5;
+      smogSpeed = 1;
+      break;
+    case 'hard':
+      seedsLeft = 4;
+      smogSpeed = 1.2;
+      break;
   }
 }
 
-function resetGame() {
-  timeLeft = 30;
-  waterUses = 0;
-  seedsLeft = 5;
-  gameActive = false;
-  plant.style.fontSize = '20px';
-  flower.style.opacity = 0;
-  flower.style.fontSize = '30px';
-  smog.style.width = '0%';
-  hud.textContent = `Seeds Left: 🌱 x ${seedsLeft}\nSmog Approaching →`;
-  status.textContent = `Time Left: ${timeLeft}s | Water Uses: ${waterUses}/3`;
-  plantBtn.classList.remove('hidden');
-  waterBtn.classList.add('hidden');
-  resetBtn.classList.add('hidden');
-}
+function
