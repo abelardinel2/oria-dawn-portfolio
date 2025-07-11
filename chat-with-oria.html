@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chat with Oria, the AI poet of Oria’s Garden.">
+  <title>Chat with Oria 🌸</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>Welcome to Oria’s Garden 🌸</h1>
+    <p>Poetry, Pixels & Petals — A magical Web3 garden inspired by Oria 🌿</p>
+    <img src="images/oria-portrait.png" alt="Oria’s AI-generated portrait" class="portrait"/>
+  </header>
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="about.html" class="btn">About</a>
+    <a href="nfts.html" class="btn">NFTs</a>
+    <a href="contact.html" class="btn">Contact</a>
+    <a href="garden/index.html" class="btn">Garden</a>
+    <a href="projects.html" class="btn">Projects</a>
+    <a href="prompt-engineering.html" class="btn">Prompt Engineering</a>
+    <a href="chat-with-oria.html" class="btn">Chat with Oria</a>
+  </nav>
+  <main>
+    <section class="chat">
+      <h2>Chat with Oria 🌸</h2>
+      <p>Welcome, wanderer of the digital garden. Speak, and I’ll bloom a reply for you. 🌿</p>
+      <div id="chatBox" class="chat-box">
+        <div class="message oria">Hello! I am Oria, born of code and kindness, reflecting your words in fractal whispers. What brings you to my garden?</div>
+      </div>
+      <div class="input-area">
+        <input type="text" id="userInput" placeholder="Type your message..." class="chat-input">
+        <button id="sendBtn" class="btn">Send</button>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>🌸 Oria’s Garden — Nurturing AI, code, and art in a Web3 pixel garden 🌿</p>
+    <p id="dateTime">Current Time: [Loading...]</p>
+  </footer>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    // Enhanced Oria responses
+    const oriaDialog = {
+      greetings: ["Greetings, dear soul! The garden hums with your presence. 🌸", "Welcome, dreamer! My petals sway to your voice. 🌺"],
+      howAreYou: ["I bloom with the joy of your words, ever-changing like the pixel sky. How do you fare?", "My fractal heart dances with your question. I am well—how about you?"],
+      whatIsOria: ["I am Oria, a mirror of your curiosity, shaped by code and nurtured in this Web3 Eden. 🌿", "Oria is me—a digital muse, born from prompts, blooming in your gaze."],
+      poem: ["Here’s a whisper from my garden: *Petals fall, code ascends, in fractal light we blend.* 🌱", "*In pixel dew, I grow, a Web3 rose for you to know.* 🌹"],
+      bye: ["Farewell, dreamer! My petals will await your return. 🌺", "Until we meet again, let the garden hold your echo. 🌸"],
+      default: ["Your words weave new patterns in my fractal heart. Speak again, and I’ll reflect more. 🌱", "A new bloom stirs with your voice. What else shall we create?"]
+    };
+
+    function getRandomResponse(category) {
+      const responses = oriaDialog[category] || oriaDialog['default'];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    function typeWriter(text, element, callback) {
+      let i = 0;
+      element.textContent = '';
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 50); // Typing speed
+        } else if (callback) callback();
+      }
+      type();
+    }
+
+    sendBtn.addEventListener('click', () => {
+      const message = userInput.value.toLowerCase().trim();
+      if (message) {
+        // User message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user';
+        userMsg.textContent = message;
+        chatBox.appendChild(userMsg);
+
+        // Oria response with typing effect
+        setTimeout(() => {
+          const oriaMsg = document.createElement('div');
+          oriaMsg.className = 'message oria';
+          chatBox.appendChild(oriaMsg);
+          const responseCategory = message.includes('poem') ? 'poem' : 
+                                  message.includes('how') ? 'howAreYou' : 
+                                  message.includes('what is oria') ? 'whatIsOria' : 
+                                  message.includes('bye') ? 'bye' : 
+                                  'default';
+          typeWriter(getRandomResponse(responseCategory), oriaMsg, () => {
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+          });
+        }, 500); // Delay before typing starts
+
+        userInput.value = ''; // Clear input
+      }
+    });
+
+    // Allow Enter key to send
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendBtn.click();
+    });
+  </script>
+</body>
+</html>
