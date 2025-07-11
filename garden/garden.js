@@ -26,15 +26,15 @@ const images = {
   waterDrop: new Image()
 };
 
-images.bg.src = '/garden/images/bg-forest.png';
-images.plant.src = '/garden/images/oria-pixel.png';
-images.flower1.src = '/garden/images/flower-stage1.png';
-images.flower2.src = '/garden/images/flower-stage2.png';
-images.flower3.src = '/garden/images/flower-stage3.png';
-images.smog.src = '/garden/images/smog-cloud.png';
-images.healthyTrees.src = '/garden/images/healthy-trees.png';
-images.smogOverTrees.src = '/garden/images/smog-over-trees.png';
-images.waterDrop.src = '/garden/images/water-drop.png';
+images.bg.src = 'images/healthy-trees.png'; // Replaced bg-forest.png with healthy-trees.png
+images.plant.src = 'images/oria-pixel.png';
+images.flower1.src = 'images/flower-stage1.png';
+images.flower2.src = 'images/flower-stage2.png';
+images.flower3.src = 'images/flower-stage3.png';
+images.smog.src = 'images/smog-cloud.png';
+images.healthyTrees.src = 'images/healthy-trees.png';
+images.smogOverTrees.src = 'images/smog-over-trees.png';
+images.waterDrop.src = 'images/water-drop.png';
 
 let imagesLoaded = 0;
 const totalImages = Object.keys(images).length;
@@ -55,8 +55,8 @@ function loadImage(img) {
       resolve();
     };
     img.onerror = () => {
-      console.error(`Failed to load ${img.src}`);
-      status.textContent = `Error loading ${img.src}`;
+      console.error(`Failed to load ${img.src}. Check /garden/images/ directory.`);
+      status.textContent = `Error loading ${img.src}. Check console.`;
       resolve();
     };
   });
@@ -67,10 +67,10 @@ async function loadAllImages() {
   await Promise.all(loadPromises);
   if (imagesLoaded === totalImages) {
     status.textContent = 'Images loaded! Starting game...';
-    bgMusic.play(); // Start background music
+    bgMusic.play();
     startGame();
   } else {
-    status.textContent = 'Some images failed to load. Check console.';
+    status.textContent = `Some images failed to load (${totalImages - imagesLoaded} missing). Check console.`;
   }
 }
 
@@ -128,7 +128,7 @@ function drawGame() {
     status.textContent = `Level ${level} Complete! Score: ${score}`;
     plantBtn.disabled = true;
     waterBtn.disabled = true;
-    bloomChime.play(); // Play chime for level completion
+    bloomChime.play();
     setTimeout(nextLevel, 2000);
   }
 }
@@ -171,7 +171,7 @@ function nextLevel() {
   status.textContent = `Level ${level} Started!`;
   plantBtn.disabled = false;
   waterBtn.disabled = false;
-  bgMusic.play(); // Resume music
+  bgMusic.play();
   drawGame();
 }
 
