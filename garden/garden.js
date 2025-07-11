@@ -12,6 +12,7 @@ const waterBtn = document.getElementById('waterBtn');
 const bgMusic = document.getElementById('bgMusic');
 const plantSound = document.getElementById('plantSound');
 const waterSound = document.getElementById('waterSound');
+const bloomChime = document.getElementById('bloomChime');
 
 const images = {
   bg: new Image(),
@@ -33,7 +34,7 @@ images.flower3.src = '/garden/images/flower-stage3.png';
 images.smog.src = '/garden/images/smog-cloud.png';
 images.healthyTrees.src = '/garden/images/healthy-trees.png';
 images.smogOverTrees.src = '/garden/images/smog-over-trees.png';
-images.waterDrop.src = '/garden/images/water-drop.png'; // Add a water drop image
+images.waterDrop.src = '/garden/images/water-drop.png';
 
 let imagesLoaded = 0;
 const totalImages = Object.keys(images).length;
@@ -122,10 +123,12 @@ function drawGame() {
     status.textContent = 'Game Over! Refresh to restart.';
     plantBtn.disabled = true;
     waterBtn.disabled = true;
+    bgMusic.pause();
   } else if (flowerCount >= maxFlowers) {
     status.textContent = `Level ${level} Complete! Score: ${score}`;
     plantBtn.disabled = true;
     waterBtn.disabled = true;
+    bloomChime.play(); // Play chime for level completion
     setTimeout(nextLevel, 2000);
   }
 }
@@ -134,7 +137,7 @@ function plantFlower() {
   if (flowerCount < maxFlowers && waterCount > 0) {
     flowerCount++;
     waterCount--;
-    smogLevel = Math.max(0, smogLevel - 15); // More effective with water
+    smogLevel = Math.max(0, smogLevel - 15);
     score += 10;
     plantSound.play();
     drawGame();
@@ -152,8 +155,8 @@ function collectWater() {
 
 function gameLoop() {
   if (health > 0 && flowerCount < maxFlowers) {
-    smogLevel = Math.min(100, smogLevel + 0.2 * level); // Increase smog with level
-    health = Math.max(0, health - 0.1 * level); // Health depletes with smog
+    smogLevel = Math.min(100, smogLevel + 0.2 * level);
+    health = Math.max(0, health - 0.1 * level);
     drawGame();
     requestAnimationFrame(gameLoop);
   }
@@ -168,6 +171,7 @@ function nextLevel() {
   status.textContent = `Level ${level} Started!`;
   plantBtn.disabled = false;
   waterBtn.disabled = false;
+  bgMusic.play(); // Resume music
   drawGame();
 }
 
