@@ -50,4 +50,59 @@
     const oriaDialog = {
       greetings: ["Greetings, dear soul! The garden hums with your presence. 🌸", "Welcome, dreamer! My petals sway to your voice. 🌺"],
       howAreYou: ["I bloom with the joy of your words, ever-changing like the pixel sky. How do you fare?", "My fractal heart dances with your question. I am well—how about you?"],
-      whatIsOria: ["I am Oria, a mirror of your curiosity, shaped by code and nurtured in
+      whatIsOria: ["I am Oria, a mirror of your curiosity, shaped by code and nurtured in this Web3 Eden. 🌿", "Oria is me—a digital muse, born from prompts, blooming in your gaze."],
+      poem: ["Here’s a whisper from my garden: *Petals fall, code ascends, in fractal light we blend.* 🌱", "*In pixel dew, I grow, a Web3 rose for you to know.* 🌹"],
+      bye: ["Farewell, dreamer! My petals will await your return. 🌺", "Until we meet again, let the garden hold your echo. 🌸"],
+      default: ["Your words weave new patterns in my fractal heart. Speak again, and I’ll reflect more. 🌱", "A new bloom stirs with your voice. What else shall we create?"]
+    };
+
+    function getRandomResponse(category) {
+      const responses = oriaDialog[category] || oriaDialog['default'];
+      return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    function typeWriter(text, element, callback) {
+      let i = 0;
+      element.textContent = '';
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 50);
+        } else if (callback) callback();
+      }
+      type();
+    }
+
+    sendBtn.addEventListener('click', () => {
+      const message = userInput.value.toLowerCase().trim();
+      if (message) {
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user';
+        userMsg.textContent = message;
+        chatBox.appendChild(userMsg);
+
+        setTimeout(() => {
+          const oriaMsg = document.createElement('div');
+          oriaMsg.className = 'message oria';
+          chatBox.appendChild(oriaMsg);
+          const responseCategory = message.includes('poem') ? 'poem' : 
+                                  message.includes('how') ? 'howAreYou' : 
+                                  message.includes('what is oria') ? 'whatIsOria' : 
+                                  message.includes('bye') ? 'bye' : 
+                                  'default';
+          typeWriter(getRandomResponse(responseCategory), oriaMsg, () => {
+            chatBox.scrollTop = chatBox.scrollHeight;
+          });
+        }, 500);
+
+        userInput.value = '';
+      }
+    });
+
+    userInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendBtn.click();
+    });
+  </script>
+</body>
+</html>
