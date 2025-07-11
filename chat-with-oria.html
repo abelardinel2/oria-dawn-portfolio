@@ -47,7 +47,6 @@
     const userInput = document.getElementById('userInput');
     const sendBtn = document.getElementById('sendBtn');
 
-    // Enhanced Oria responses
     const oriaDialog = {
       greetings: ["Greetings, dear soul! The garden hums with your presence. 🌸", "Welcome, dreamer! My petals sway to your voice. 🌺"],
       howAreYou: ["I bloom with the joy of your words, ever-changing like the pixel sky. How do you fare?", "My fractal heart dances with your question. I am well—how about you?"],
@@ -69,7 +68,7 @@
         if (i < text.length) {
           element.textContent += text.charAt(i);
           i++;
-          setTimeout(type, 50); // Typing speed
+          setTimeout(type, 50);
         } else if (callback) callback();
       }
       type();
@@ -78,13 +77,11 @@
     sendBtn.addEventListener('click', () => {
       const message = userInput.value.toLowerCase().trim();
       if (message) {
-        // User message
         const userMsg = document.createElement('div');
         userMsg.className = 'message user';
         userMsg.textContent = message;
         chatBox.appendChild(userMsg);
 
-        // Oria response with typing effect
         setTimeout(() => {
           const oriaMsg = document.createElement('div');
           oriaMsg.className = 'message oria';
@@ -95,15 +92,14 @@
                                   message.includes('bye') ? 'bye' : 
                                   'default';
           typeWriter(getRandomResponse(responseCategory), oriaMsg, () => {
-            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+            chatBox.scrollTop = chatBox.scrollHeight;
           });
-        }, 500); // Delay before typing starts
+        }, 500);
 
-        userInput.value = ''; // Clear input
+        userInput.value = '';
       }
     });
 
-    // Allow Enter key to send
     userInput.addEventListener('keypress', (e) => {
       if (e.key === 'Enter') sendBtn.click();
     });
