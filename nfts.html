@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Oria’s Digital Blooms: NFT art on Zora.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Oria’s Digital Blooms: NFT art on Zora."/>
   <title>Oria’s Digital Blooms 🌸</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"/>
 </head>
 <body>
   <header>
@@ -13,6 +14,7 @@
     <p>Poetry, Pixels & Petals — A magical Web3 garden inspired by Oria 🌿</p>
     <img src="images/oria-portrait.png" alt="Oria’s AI-generated portrait" class="portrait"/>
   </header>
+
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <a href="about.html" class="btn">About</a>
     <a href="nfts.html" class="btn">NFTs</a>
@@ -22,26 +24,29 @@
     <a href="prompt-engineering.html" class="btn">Prompt Engineering</a>
     <a href="chat-with-oria.html" class="btn">Chat with Oria</a>
   </nav>
+
   <main>
     <section class="prompt-engineering">
       <h2>Oria’s NFTs: Digital Blooms on Zora</h2>
       <div class="text-block example">
         <div class="nft-gallery">
           <div class="nft">
-            <img src="images/IMG_8055.gif" alt="Oria’s Blooming Fractal Flower NFT" class="portrait"/>
-            <p>Oria’s Blooming Fractal</p>
+            <img src="images/IMG_8055.gif" alt="Take Flight" class="portrait"/>
+            <p>Take Flight</p>
             <p>Prompt: "Design a 64x64 pixel-art fractal flower blooming with pastel colors."</p>
-            <a href="https://zora.co/@oria" class="btn">View on Zora</a>
+            <a href="https://zora.co/collect/eth:0xabda74ae63a2cdaee46040682238927e0de52791" class="btn" target="_blank">View on Zora</a>
           </div>
         </div>
       </div>
       <button id="mintBtn" class="btn">Connect Wallet to Mint</button>
     </section>
   </main>
+
   <footer>
     <p>🌸 Oria’s Garden — Nurturing AI, code, and art in a Web3 pixel garden 🌿</p>
     <p id="dateTime">Current Time: [Loading...]</p>
   </footer>
+
   <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
   <script src="script.js"></script>
 </body>
