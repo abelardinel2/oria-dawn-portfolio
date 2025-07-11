@@ -1,97 +1,37 @@
-/* Base Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Press Start 2P', monospace;
-  background: linear-gradient(to bottom, #f7e4e8, #c1e1c1);
-  color: #333;
-  text-align: center;
-  padding: 20px;
-}
-
-header {
-  padding: 40px 20px 20px;
-}
-
-header h1 {
-  font-size: 24px;
-  color: #e94560;
-  text-shadow: 2px 2px #fff;
-}
-
-header p {
-  font-size: 12px;
-  max-width: 600px;
-  margin: 10px auto;
-}
-
-header img.portrait {
-  width: 180px;
-  border: 4px solid #e94560;
-  border-radius: 10px;
-  image-rendering: pixelated;
-  margin-top: 20px;
-}
-
-.nav {
-  margin: 20px auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-}
-
-.btn {
-  background: #e94560;
-  color: #fff;
-  padding: 8px 16px;
-  font-size: 12px;
-  border: none;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-.btn:hover {
-  background: #ff69b4;
-}
-
-main {
-  padding: 40px 20px;
-}
-
-h2 {
-  font-size: 18px;
+/* Fix NFT section sizing and text */
+.nfts h2 {
+  font-size: 1.5rem;  /* Larger section heading */
   margin-bottom: 20px;
-}
-
-.nft-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  max-width: 800px;
-  margin: 0 auto;
 }
 
 .nft img {
   width: 100%;
-  max-width: 200px;
-  border: 2px solid #333;
+  max-width: 320px;  /* Larger image! */
+  border: 3px solid #333;
   border-radius: 6px;
+  margin: 0 auto;
 }
 
 .nft p {
-  font-size: 10px;
-  margin: 10px 0;
-  color: #333;
+  font-size: 14px; /* Bigger text under image */
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 10px auto;
+}
+
+.nft-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn {
+  font-size: 14px; /* Slightly larger buttons if you want */
+  padding: 10px 20px;
 }
 
 footer {
   margin-top: 40px;
-  font-size: 10px;
-  color: #444;
+  font-size: 12px; /* Keep footer readable but small */
 }
