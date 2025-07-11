@@ -4,9 +4,36 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Plant flowers in Oria’s Garden game.">
-  <title>Oria’s Garden 🌸</title>
+  <title>Oria’s Garden Game 🌸</title>
   <link rel="stylesheet" href="../style.css">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    .garden-game {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    #gameCanvas {
+      width: 400px;
+      height: 300px;
+      border: 2px solid #d63384;
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+      background: #C1E1C1;
+    }
+    #plant, #water, #flower, #smog {
+      position: absolute;
+      transition: all 0.5s ease;
+    }
+    #plant { top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; color: #d63384; }
+    #flower { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; }
+    #smog { top: 0; left: 0; width: 0%; height: 100%; background: rgba(0, 0, 0, 0.7); }
+    #status { margin-top: 10px; color: #d63384; }
+    .hidden { display: none; }
+  </style>
 </head>
 <body>
   <header>
@@ -21,14 +48,21 @@
     <a href="index.html" class="btn">Garden</a>
     <a href="../projects.html" class="btn">Projects</a>
     <a href="../prompt-engineering.html" class="btn">Prompt Engineering</a>
+    <a href="../chat-with-oria.html" class="btn">Chat with Oria</a>
   </nav>
   <main>
-    <section class="garden">
-      <h2>Welcome to Oria’s Garden</h2>
-      <p>Poetry, Pixels, and Petals.</p>
-      <p>Flowers Planted: <span id="flowerCount">0</span>/10</p>
-      <button id="plantBtn" class="btn">Plant a Flower</button>
-      <a href="../index.html" class="btn">Back to Oria Dawn</a>
+    <section class="garden-game">
+      <h2>Oria’s Garden Game</h2>
+      <p>Plant a seed, water it, and grow a flower before the smog takes over! 🌱</p>
+      <div id="gameCanvas">
+        <div id="plant">🌱</div>
+        <div id="flower">🌸</div>
+        <div id="smog"></div>
+      </div>
+      <div id="status">Time Left: 30s | Water Uses: 0/3</div>
+      <button id="plantBtn" class="btn">Plant Seed</button>
+      <button id="waterBtn" class="btn hidden">Water Plant</button>
+      <button id="resetBtn" class="btn hidden">Play Again</button>
     </section>
   </main>
   <footer>
@@ -38,15 +72,78 @@
   <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
   <script src="../script.js"></script>
   <script>
-    let flowerCount = 0;
-    document.getElementById("plantBtn").addEventListener("click", () => {
-      if (flowerCount < 10) {
-        flowerCount++;
-        document.getElementById("flowerCount").textContent = flowerCount;
-      } else {
-        alert("Garden is full! 🌸");
+    const gameCanvas = document.getElementById('gameCanvas');
+    const plant = document.getElementById('plant');
+    const flower = document.getElementById('flower');
+    const smog = document.getElementById('smog');
+    const status = document.getElementById('status');
+    const plantBtn = document.getElementById('plantBtn');
+    const waterBtn = document.getElementById('waterBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let timeLeft = 30;
+    let waterUses = 0;
+    let gameInterval;
+    let gameActive = false;
+
+    plantBtn.addEventListener('click', () => {
+      if (!gameActive) {
+        gameActive = true;
+        plantBtn.classList.add('hidden');
+        waterBtn.classList.remove('hidden');
+        plant.style.fontSize = '60px'; // Grow seed slightly
+        startGame();
       }
     });
-  </script>
-</body>
-</html>
+
+    waterBtn.addEventListener('click', () => {
+      if (waterUses < 3 && gameActive) {
+        waterUses++;
+        status.textContent = `Time Left: ${timeLeft}s | Water Uses: ${waterUses}/3`;
+        flower.style.opacity = waterUses / 3; // Gradually reveal flower
+        flower.style.fontSize = `${40 + waterUses * 20}px`; // Grow flower
+        if (waterUses === 3) {
+          endGame(true);
+        }
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      resetGame();
+    });
+
+    function startGame() {
+      gameInterval = setInterval(() => {
+        timeLeft--;
+        const smogWidth = ((30 - timeLeft) / 30) * 100; // Smog increases over time
+        smog.style.width = `${smogWidth}%`;
+        status.textContent = `Time Left: ${timeLeft}s | Water Uses: ${waterUses}/3`;
+        if (timeLeft <= 0) {
+          endGame(false);
+        }
+      }, 1000);
+    }
+
+    function endGame(won) {
+      clearInterval(gameInterval);
+      gameActive = false;
+      waterBtn.classList.add('hidden');
+      resetBtn.classList.remove('hidden');
+      if (won) {
+        status.textContent = "You saved the flower! 🌸 Play again?";
+        flower.style.opacity = 1;
+      } else {
+        status.textContent = "The smog won... 🌫️ Try again?";
+        flower.style.opacity = 0;
+      }
+    }
+
+    function resetGame() {
+      timeLeft = 30;
+      waterUses = 0;
+      gameActive = false;
+      plant.style.fontSize = '40px';
+      flower.style.opacity = 0;
+      flower.style.fontSize = '40px';
+      smog.style.width = '0%';
+      status.textContent = `Time Left: ${timeLeft}s | Water
