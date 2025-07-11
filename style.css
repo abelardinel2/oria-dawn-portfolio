@@ -3,30 +3,39 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-style: normal; /* Ensure no unintended italics */
 }
 
+/* Base Body */
 body {
-  font-family: 'Press Start 2P', monospace;
-  background: linear-gradient(to bottom, #f7e4e8, #c1e1c1);
+  font-family: 'Press Start 2P', monospace; /* Retro pixel font */
+  background: linear-gradient(to bottom, #f7e4e8, #c1e1c1); /* Soft gradient */
   color: #333;
   text-align: center;
   padding: 20px;
+  line-height: 1.5; /* Improved readability */
 }
 
+/* Header */
 header {
   padding: 40px 20px 20px;
+  background: rgba(255, 255, 255, 0.8); /* Slight overlay for contrast */
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 header h1 {
   font-size: 24px;
-  color: #e94560;
+  color: #e94560; /* Vibrant pink */
   text-shadow: 2px 2px #fff;
+  margin-bottom: 10px;
 }
 
 header p {
   font-size: 12px;
   max-width: 600px;
   margin: 10px auto;
+  padding: 0 10px; /* Prevent text from touching edges */
 }
 
 header img.portrait {
@@ -37,12 +46,16 @@ header img.portrait {
   margin-top: 20px;
 }
 
+/* Navigation */
 .nav {
   margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
+  background: rgba(255, 255, 255, 0.8); /* Consistent with header */
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .btn {
@@ -54,44 +67,39 @@ header img.portrait {
   border-radius: 4px;
   text-decoration: none;
   transition: background 0.3s ease;
+  cursor: pointer;
 }
 
 .btn:hover {
   background: #ff69b4;
 }
 
+/* Main Content */
 main {
   padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.8); /* Consistent background */
+  border-radius: 10px;
+  margin: 0 auto;
+  max-width: 800px;
 }
 
 h2 {
   font-size: 18px;
   margin-bottom: 20px;
+  color: #e94560; /* Match header color */
 }
 
+/* NFT Gallery */
 .nft-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
   max-width: 800px;
   margin: 0 auto;
+  padding: 10px;
 }
 
-.nft img {
-  width: 100%;
-  max-width: 200px;
-  border: 2px solid #333;
-  border-radius: 6px;
-}
-
-.nft p {
-  font-size: 10px;
-  margin: 10px 0;
-  color: #333;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: 10px;
-  color: #444;
-}
+.nft {
+  background: #fff;
+  padding: 10px;
+  border: 2px solid #e94560;
