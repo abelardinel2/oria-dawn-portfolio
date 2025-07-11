@@ -46,8 +46,9 @@ let health = 100;
 let level = 1;
 const maxFlowers = 10;
 
-// Define sprite sizes (adjust based on your image dimensions)
-const spriteSize = 100; // Example size for consistency
+// Define sprite sizes
+const spriteSize = 100; // Default for flowers and trees
+const oriaSize = 50; // Reduced size for Oria
 
 function loadImage(img) {
   return new Promise((resolve) => {
@@ -97,8 +98,8 @@ function drawGame() {
     ctx.drawImage(images.healthyTrees, 0, 0, canvas.width, canvas.height);
   }
 
-  // Draw plant with fixed size
-  ctx.drawImage(images.plant, 50, 150, spriteSize, spriteSize);
+  // Draw plant (Oria) with reduced size and adjusted position
+  ctx.drawImage(images.plant, 50, 100, oriaSize, oriaSize); // Moved up to 100, reduced to 50x50
 
   // Draw flowers with fixed size
   if (flowerCount >= 1) ctx.drawImage(images.flower1, 100, 150, spriteSize, spriteSize);
@@ -109,10 +110,10 @@ function drawGame() {
   const smogWidth = (smogLevel / 100) * canvas.width;
   ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
   ctx.fillRect(0, 0, smogWidth, canvas.height);
-  ctx.drawImage(images.smog, smogWidth - 50, 50, spriteSize / 2, spriteSize / 2); // Smaller smog icon
+  ctx.drawImage(images.smog, smogWidth - 50, 50, spriteSize / 2, spriteSize / 2);
 
   // Draw water drop with fixed size
-  if (waterCount > 0) ctx.drawImage(images.waterDrop, 300, 150, spriteSize / 2, spriteSize / 2); // Smaller drop
+  if (waterCount > 0) ctx.drawImage(images.waterDrop, 300, 150, spriteSize / 2, spriteSize / 2);
 
   // Update UI
   flowerCountDisplay.textContent = flowerCount;
