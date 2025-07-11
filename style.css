@@ -1,37 +1,26 @@
-/* Fix NFT section sizing and text */
-.nfts h2 {
-  font-size: 1.5rem;  /* Larger section heading */
+/* About Oria Page */
+main {
+  text-align: center;
+  padding: 2rem;
+}
+
+main h2 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1.5rem; 
   margin-bottom: 20px;
 }
 
-.nft img {
-  width: 100%;
-  max-width: 320px;  /* Larger image! */
-  border: 3px solid #333;
-  border-radius: 6px;
-  margin: 0 auto;
-}
-
-.nft p {
-  font-size: 14px; /* Bigger text under image */
-  line-height: 1.5;
+main p {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.85rem;  /* Slightly larger if you want */
+  line-height: 1.7;
   max-width: 600px;
-  margin: 10px auto;
+  margin: 0 auto 20px;
 }
 
-.nft-gallery {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.btn {
-  font-size: 14px; /* Slightly larger buttons if you want */
-  padding: 10px 20px;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: 12px; /* Keep footer readable but small */
+main .btn {
+  font-family: 'Press Start 2P', monospace;
+  margin: 5px;
+  font-size: 0.85rem;
+  padding: 8px 14px;
 }
