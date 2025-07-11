@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Plant flowers in Oria’s Garden: Smog Survival.">
   <title>Oria’s Garden: Smog Survival 🌸</title>
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./garden.css">
   <style>
     .garden-game {
       text-align: center;
@@ -65,7 +65,7 @@
       <p>Plant seeds to grow flowers and push back the deadly smog! 🌱</p>
       <canvas id="gameCanvas"></canvas>
       <div id="hud"></div>
-      <div id="status">Select Difficulty to Start</div>
+      <div id="status">Loading images...</div>
       <div class="controls">
         <select id="difficulty" class="btn">
           <option value="easy">Easy</option>
@@ -80,214 +80,13 @@
   </main>
   <footer>
     <p>🌸 Oria’s Garden — Nurturing AI, code, and art in a Web3 pixel garden 🌿</p>
-    <p id="dateTime">Current Time: 01:13 PM EDT, July 11, 2025</p>
+    <p id="dateTime">Current Time: 02:25 PM EDT, July 11, 2025</p>
   </footer>
-  <audio id="plantSound" src="plant.wav"></audio>
-  <audio id="winSound" src="win.wav"></audio>
-  <audio id="loseSound" src="lose.wav"></audio>
-  <audio id="bgMusic" src="bgm.mp3" loop></audio>
-  <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
-  <script src="../script.js"></script>
-  <script>
-    // Game Logic
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = 600;
-    canvas.height = 400;
-
-    const hud = document.getElementById('hud');
-    const status = document.getElementById('status');
-    const scoreDisplay = document.getElementById('scoreDisplay');
-    const startBtn = document.getElementById('startBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const difficultySelect = document.getElementById('difficulty');
-    const plantSound = document.getElementById('plantSound');
-    const winSound = document.getElementById('winSound');
-    const loseSound = document.getElementById('loseSound');
-    const bgMusic = document.getElementById('bgMusic');
-
-    let oria = { x: 50, y: canvas.height / 2, width: 32, height: 32 };
-    let plants = [];
-    let flowers = [];
-    let smogWidth = 0;
-    let timeLeft = 30;
-    let waterUses = 0;
-    let seedsLeft = 5;
-    let score = 0;
-    let gameInterval;
-    let gameActive = false;
-    let difficulty = 'medium';
-    let smogSpeed = 1;
-
-    // Sprites (simplified pixel art)
-    const oriaImg = new Image();
-    oriaImg.src = '../images/oria-pixel.png'; // 32x32 pixel art of Oria
-    const plantImg = new Image();
-    plantImg.src = '../images/plant-pixel.png'; // 16x16 pixel art
-    const flowerImg = new Image();
-    flowerImg.src = '../images/flower-pixel.png'; // 16x16 pixel art
-    const smogImg = new Image();
-    smogImg.src = '../images/smog-pixel.png'; // 32x32 pixel art
-
-    // Background
-    let background = ctx.createLinearGradient(0, 0, 0, canvas.height);
-    background.addColorStop(0, '#c1e1c1');
-    background.addColorStop(1, '#e0f7e9');
-
-    difficultySelect.addEventListener('change', (e) => {
-      difficulty = e.target.value;
-      setDifficulty();
-    });
-
-    startBtn.addEventListener('click', () => {
-      if (!gameActive) {
-        startGame();
-      }
-    });
-
-    resetBtn.addEventListener('click', () => {
-      resetGame();
-    });
-
-    canvas.addEventListener('click', (e) => {
-      if (gameActive) {
-        const rect = canvas.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        if (clickX > oria.x && clickX < oria.x + oria.width && seedsLeft > 0) {
-          plantSeed();
-        }
-      }
-    });
-
-    function setDifficulty() {
-      switch (difficulty) {
-        case 'easy':
-          seedsLeft = 6;
-          smogSpeed = 0.8;
-          break;
-        case 'medium':
-          seedsLeft = 5;
-          smogSpeed = 1;
-          break;
-        case 'hard':
-          seedsLeft = 4;
-          smogSpeed = 1.2;
-          break;
-      }
-    }
-
-    function startGame() {
-      gameActive = true;
-      setDifficulty();
-      startBtn.classList.add('hidden');
-      resetBtn.classList.add('hidden');
-      status.textContent = `Time Left: ${timeLeft}s`;
-      hud.textContent = `Seeds: ${seedsLeft} | Smog: 0%`;
-      score = 0;
-      scoreDisplay.textContent = `Score: ${score}`;
-      bgMusic.play();
-      gameLoop();
-    }
-
-    function gameLoop() {
-      gameInterval = setInterval(() => {
-        timeLeft -= smogSpeed / 10;
-        smogWidth = ((30 - timeLeft) / 30) * 100;
-        if (Math.random() < 0.1) smogWidth += 5; // Random smog surge
-        if (smogWidth > 100) smogWidth = 100;
-
-        if (timeLeft <= 0 || (smogWidth >= 80 && seedsLeft === 0)) {
-          endGame(false);
-        } else if (flowers.length >= 3) {
-          endGame(true);
-        }
-
-        updateHUD();
-        draw();
-      }, 100);
-    }
-
-    function plantSeed() {
-      if (seedsLeft > 0) {
-        plants.push({ x: oria.x + oria.width, y: oria.y, growth: 0 });
-        seedsLeft--;
-        plantSound.play();
-        updateHUD();
-      }
-    }
-
-    function waterPlant() {
-      if (plants.length > 0 && waterUses < 3) {
-        waterUses++;
-        plants[plants.length - 1].growth += 0.33;
-        if (waterUses === 3) {
-          flowers.push({ x: plants[plants.length - 1].x, y: plants[plants.length - 1].y });
-          plants.pop();
-        }
-        updateHUD();
-      }
-    }
-
-    function updateHUD() {
-      hud.textContent = `Seeds: ${seedsLeft} | Smog: ${Math.floor(smogWidth)}%`;
-      status.textContent = `Time Left: ${Math.ceil(timeLeft)}s`;
-      score = Math.floor((3 - waterUses) * 100 + (30 - timeLeft) * 10);
-      scoreDisplay.textContent = `Score: ${score}`;
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = background;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Draw Oria
-      ctx.drawImage(oriaImg, oria.x, oria.y, oria.width, oria.height);
-
-      // Draw Plants and Flowers
-      plants.forEach((p, i) => {
-        ctx.drawImage(plantImg, p.x, p.y, 16, 16);
-        if (p.growth > 0) ctx.globalAlpha = p.growth;
-        ctx.drawImage(flowerImg, p.x, p.y, 16, 16);
-        ctx.globalAlpha = 1;
-      });
-      flowers.forEach(f => ctx.drawImage(flowerImg, f.x, f.y, 16, 16));
-
-      // Draw Smog
-      ctx.fillStyle = 'rgba(128, 0, 128, 0.7)';
-      ctx.fillRect(0, 0, (canvas.width * smogWidth) / 100, canvas.height);
-    }
-
-    function endGame(won) {
-      clearInterval(gameInterval);
-      gameActive = false;
-      bgMusic.pause();
-      if (won) {
-        winSound.play();
-        status.textContent = `You won! Score: ${score} 🌸`;
-      } else {
-        loseSound.play();
-        status.textContent = `Smog won... Score: ${score} 🌫️`;
-      }
-      resetBtn.classList.remove('hidden');
-    }
-
-    function resetGame() {
-      timeLeft = 30;
-      waterUses = 0;
-      seedsLeft = 5;
-      smogWidth = 0;
-      plants = [];
-      flowers = [];
-      gameActive = false;
-      startBtn.classList.remove('hidden');
-      resetBtn.classList.add('hidden');
-      status.textContent = 'Select Difficulty to Start';
-      hud.textContent = '';
-      draw();
-    }
-
-    // Initial draw
-    draw();
-  </script>
+  <audio id="plantSound" src="./bloom-chime.mp3"></audio>
+  <audio id="winSound" src="./win.wav"></audio> <!-- Placeholder, replace if available -->
+  <audio id="loseSound" src="./lose.wav"></audio> <!-- Placeholder, replace if available -->
+  <audio id="bgMusic" src="./bgm.mp3" loop></audio> <!-- Placeholder, replace if available -->
+  <script src="./script.js"></script>
+  <script src="./garden.js"></script>
 </body>
 </html>
