@@ -6,7 +6,6 @@
   <meta name="description" content="Plant flowers in Oria’s Garden game.">
   <title>Oria’s Garden Game 🌸</title>
   <link rel="stylesheet" href="../style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     .garden-game {
       text-align: center;
@@ -18,7 +17,7 @@
     #gameCanvas {
       width: 400px;
       height: 300px;
-      border: 2px solid #d63384;
+      border: 2px solid #ff69b4;
       position: relative;
       margin: 0 auto;
       overflow: hidden;
@@ -28,10 +27,10 @@
       position: absolute;
       transition: all 0.5s ease;
     }
-    #plant { top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; color: #d63384; }
+    #plant { top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; color: #ff69b4; }
     #flower { top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0; }
     #smog { top: 0; left: 0; width: 0%; height: 100%; background: rgba(0, 0, 0, 0.7); }
-    #status { margin-top: 10px; color: #d63384; }
+    #status { margin-top: 10px; color: #ff69b4; }
     .hidden { display: none; }
   </style>
 </head>
@@ -91,7 +90,7 @@
         gameActive = true;
         plantBtn.classList.add('hidden');
         waterBtn.classList.remove('hidden');
-        plant.style.fontSize = '60px'; // Grow seed slightly
+        plant.style.fontSize = '60px';
         startGame();
       }
     });
@@ -100,8 +99,8 @@
       if (waterUses < 3 && gameActive) {
         waterUses++;
         status.textContent = `Time Left: ${timeLeft}s | Water Uses: ${waterUses}/3`;
-        flower.style.opacity = waterUses / 3; // Gradually reveal flower
-        flower.style.fontSize = `${40 + waterUses * 20}px`; // Grow flower
+        flower.style.opacity = waterUses / 3;
+        flower.style.fontSize = `${40 + waterUses * 20}px`;
         if (waterUses === 3) {
           endGame(true);
         }
@@ -115,7 +114,7 @@
     function startGame() {
       gameInterval = setInterval(() => {
         timeLeft--;
-        const smogWidth = ((30 - timeLeft) / 30) * 100; // Smog increases over time
+        const smogWidth = ((30 - timeLeft) / 30) * 100;
         smog.style.width = `${smogWidth}%`;
         status.textContent = `Time Left: ${timeLeft}s | Water Uses: ${waterUses}/3`;
         if (timeLeft <= 0) {
@@ -146,4 +145,11 @@
       flower.style.opacity = 0;
       flower.style.fontSize = '40px';
       smog.style.width = '0%';
-      status.textContent = `Time Left: ${timeLeft}s | Water
+      status.textContent = `Time Left: ${timeLeft}s | Water Uses: ${waterUses}/3`;
+      plantBtn.classList.remove('hidden');
+      waterBtn.classList.add('hidden');
+      resetBtn.classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
