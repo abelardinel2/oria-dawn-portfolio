@@ -27,23 +27,39 @@ let gameActive = false;
 let difficulty = 'medium';
 let smogSpeed = 1;
 
-// Load Images
+// Load Images with Error Handling
 const oriaImg = new Image();
-oriaImg.src = '../images/Oria-pixel.png'; // 32x32 Oria holding flower
+oriaImg.src = './Oria-pixel.png';
 const flowerStage1Img = new Image();
-flowerStage1Img.src = '../images/flower-stage1.png'; // 16x16 tiny sprout with soil
+flowerStage1Img.src = './flower-stage1.png';
 const flowerStage2Img = new Image();
-flowerStage2Img.src = '../images/flower-stage2.png'; // 16x16 Oria holding blooming flower
+flowerStage2Img.src = './flower-stage2.png';
 const flowerStage3Img = new Image();
-flowerStage3Img.src = '../images/flower-stage3.png'; // 16x16 big glowing flower
+flowerStage3Img.src = './flower-stage3.png';
 const healthyTreeImg = new Image();
-healthyTreeImg.src = '../images/Healthy-trees.png'; // 16x16 healthy green trees
+healthyTreeImg.src = './Healthy-trees.png';
 const smogCloudImg = new Image();
-smogCloudImg.src = '../images/Smog-cloud.png'; // 32x32 dark smog cloud
+smogCloudImg.src = './Smog-cloud.png';
 const smogOverTreesImg = new Image();
-smogOverTreesImg.src = '../images/Smog-over-trees.png'; // 16x16 smog-covered trees
+smogOverTreesImg.src = './Smog-over-trees.png';
 const bgForestImg = new Image();
-bgForestImg.src = '../images/bg-forest.png'; // Looping pixel forest backdrop
+bgForestImg.src = './bg-forest.png';
+
+const images = [oriaImg, flowerStage1Img, flowerStage2Img, flowerStage3Img, healthyTreeImg, smogCloudImg, smogOverTreesImg, bgForestImg];
+let imagesLoaded = 0;
+
+images.forEach(img => {
+  img.onload = () => {
+    imagesLoaded++;
+    if (imagesLoaded === images.length) {
+      status.textContent = 'All images loaded! Select Difficulty to Start';
+    }
+  };
+  img.onerror = () => {
+    console.error(`Failed to load image: ${img.src}`);
+    status.textContent = `Error: Image ${img.src} failed to load. Check the path or file.`;
+  };
+});
 
 // Background
 let background = ctx.createLinearGradient(0, 0, 0, canvas.height);
@@ -68,29 +84,4 @@ resetBtn.addEventListener('click', () => {
 canvas.addEventListener('click', (e) => {
   if (gameActive) {
     const rect = canvas.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const clickY = e.clientY - rect.top;
-    if (clickX > oria.x && clickX < oria.x + oria.width && Math.abs(clickY - oria.y) < oria.height / 2 && seedsLeft > 0) {
-      plantSeed();
-    }
-  }
-});
-
-function setDifficulty() {
-  switch (difficulty) {
-    case 'easy':
-      seedsLeft = 6;
-      smogSpeed = 0.8;
-      break;
-    case 'medium':
-      seedsLeft = 5;
-      smogSpeed = 1;
-      break;
-    case 'hard':
-      seedsLeft = 4;
-      smogSpeed = 1.2;
-      break;
-  }
-}
-
-function
+    const clickX = e.clientX - rect
