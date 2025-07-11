@@ -1,89 +1,82 @@
+/* garden.css */
 body {
-  font-family: 'Press Start 2P', cursive;
-  background: #fff;
+  font-family: 'Press Start 2P', monospace;
+  background: linear-gradient(to bottom, #f7e4e8, #c1e1c1);
   color: #333;
   text-align: center;
-  margin: 0;
-  padding: 0;
-}
-
-header {
   padding: 20px;
-}
-
-h1 {
-  font-size: 20px;
-  color: #d63384;
-}
-
-h2 {
-  color: #d63384;
-}
-
-nav {
-  margin: 20px 0;
-}
-
-.btn {
-  display: inline-block;
-  margin: 5px;
-  padding: 8px 16px;
-  background: #ff69b4;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 12px;
-  border: none;
-  cursor: pointer;
+  line-height: 1.5;
 }
 
 .garden-game {
   text-align: center;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin: 20px auto;
   max-width: 800px;
-  margin: 0 auto;
+  position: relative;
 }
 
 #gameCanvas {
-  width: 600px;
-  height: 400px;
-  border: 2px solid #ff69b4;
-  margin: 0 auto;
+  width: 400px;
+  height: 300px;
+  border: 2px solid #e94560;
+  image-rendering: pixelated;
+}
+
+.game-ui {
+  margin-top: 10px;
+}
+
+#status, #flowerCount, #waterCount, #score, #level {
+  margin: 5px 0;
+  font-size: 12px;
+  color: #e94560;
+}
+
+.health-bar {
+  width: 200px;
+  height: 20px;
+  border: 2px solid #333;
+  border-radius: 10px;
+  margin: 10px auto;
+  background: #fff;
+}
+
+#healthFill {
+  height: 100%;
   background: #c1e1c1;
+  border-radius: 8px;
+  width: 100%;
+  transition: width 0.3s;
+}
+
+.btn {
+  background: #e94560;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.btn:hover {
+  background: #ff69b4;
+}
+
+.back-btn {
   display: block;
+  margin: 20px auto;
 }
 
-#hud {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 12px;
-  color: #d63384;
-}
-
-#status,
-#scoreDisplay {
-  margin-top: 10px;
-  color: #ff69b4;
-  font-size: 14px;
-}
-
-.controls {
-  margin-top: 10px;
-}
-
-.hidden {
-  display: none;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: 12px;
-  color: #999;
+.instructions {
+  font-size: 10px;
+  color: #666;
+  max-width: 400px;
+  margin: 10px auto;
 }
