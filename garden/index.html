@@ -1,10 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plant flowers in Oria’s Garden: Smog Survival.">
   <title>Oria’s Garden: Smog Survival 🌸</title>
-  <link rel="stylesheet" href="garden.css">
+  <link rel="stylesheet" href="/garden/garden.css">
+  <style>
+    .garden-game {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #gameCanvas {
+      width: 600px;
+      height: 400px;
+      border: 2px solid #ff69b4;
+      margin: 0 auto;
+      background: #c1e1c1;
+    }
+    #hud {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      color: #d63384;
+    }
+    #status, #scoreDisplay {
+      margin-top: 10px;
+      color: #ff69b4;
+      font-size: 14px;
+    }
+    .controls {
+      margin-top: 10px;
+    }
+    .hidden { display: none; }
+  </style>
 </head>
 <body>
   <header>
@@ -12,8 +50,7 @@
     <p>Poetry, Pixels & Petals — A magical Web3 garden inspired by Oria 🌿</p>
     <img src="/images/oria-portrait.png" alt="Oria’s AI-generated portrait" class="portrait"/>
   </header>
-
-  <nav class="nav">
+  <nav class="nav" role="navigation" aria-label="Main navigation">
     <a href="/about.html" class="btn">About</a>
     <a href="/nfts.html" class="btn">NFTs</a>
     <a href="/contact.html" class="btn">Contact</a>
@@ -22,7 +59,6 @@
     <a href="/prompt-engineering.html" class="btn">Prompt Engineering</a>
     <a href="/chat-with-oria.html" class="btn">Chat with Oria</a>
   </nav>
-
   <main>
     <section class="garden-game">
       <h2>Oria’s Garden: Smog Survival</h2>
@@ -33,7 +69,7 @@
       <div class="controls">
         <select id="difficulty" class="btn">
           <option value="easy">Easy</option>
-          <option value="medium" selected>Medium</option>
+          <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
         <button id="startBtn" class="btn">Start Game</button>
@@ -41,19 +77,10 @@
       </div>
       <div id="scoreDisplay">Score: 0</div>
     </section>
-
-    <section class="garden-grid">
-      <h3>Bloom Grid</h3>
-      <div id="gardenGrid"></div>
-      <p>Flowers Bloomed: <span id="flowerCount">0</span></p>
-      <p id="message"></p>
-    </section>
   </main>
-
   <footer>
     <p>🌸 Oria’s Garden — Nurturing AI, code, and art in a Web3 pixel</p>
   </footer>
-
-  <script src="garden.js"></script>
+  <script src="/garden/garden.js"></script>
 </body>
 </html>
