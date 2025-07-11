@@ -37,6 +37,7 @@ healthyTreeImg.src = '/garden/images/healthy-trees.png';
 const smogCloudImg = new Image();
 smogCloudImg.src = '/garden/images/smog-cloud.png';
 const smogOverTreesImg = new Image();
+smogOverTreesImg.src = '/garden/images/smog-over-trees.png';
 const bgForestImg = new Image();
 bgForestImg.src = '/garden/images/bg-forest.png';
 
