@@ -3,30 +3,31 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-style: normal; /* Ensure no unintended italics */
+  font-style: normal;
 }
 
 /* Base Body */
 body {
-  font-family: 'Press Start 2P', monospace; /* Retro pixel font */
-  background: linear-gradient(to bottom, #f7e4e8, #c1e1c1); /* Soft gradient */
+  font-family: 'Press Start 2P', monospace;
+  background: linear-gradient(to bottom, #f7e4e8, #c1e1c1);
   color: #333;
   text-align: center;
   padding: 20px;
-  line-height: 1.5; /* Improved readability */
+  line-height: 1.5;
 }
 
 /* Header */
 header {
   padding: 40px 20px 20px;
-  background: rgba(255, 255, 255, 0.8); /* Slight overlay for contrast */
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
   font-size: 24px;
-  color: #e94560; /* Vibrant pink */
+  color: #e94560;
   text-shadow: 2px 2px #fff;
   margin-bottom: 10px;
 }
@@ -35,7 +36,7 @@ header p {
   font-size: 12px;
   max-width: 600px;
   margin: 10px auto;
-  padding: 0 10px; /* Prevent text from touching edges */
+  padding: 0 10px;
 }
 
 header img.portrait {
@@ -48,10 +49,10 @@ header img.portrait {
 
 /* Portrait Class (Global) */
 .portrait {
-  max-width: 200px; /* Adjust to fit design */
+  max-width: 200px;
   height: auto;
-  margin: 10px auto; /* Centers the image with spacing */
-  image-rendering: pixelated; /* Maintain pixel art style */
+  margin: 10px auto;
+  image-rendering: pixelated;
 }
 
 /* Navigation */
@@ -61,9 +62,10 @@ header img.portrait {
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.8); /* Consistent with header */
+  background: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .btn {
@@ -85,16 +87,58 @@ header img.portrait {
 /* Main Content */
 main {
   padding: 40px 20px;
-  background: rgba(255, 255, 255, 0.8); /* Consistent background */
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   max-width: 800px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
   font-size: 18px;
   margin-bottom: 20px;
-  color: #e94560; /* Match header color */
+  color: #e94560;
+}
+
+.text-block {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+}
+
+.example blockquote {
+  font-style: italic;
+  margin: 10px 0;
+  padding: 10px;
+  border-left: 4px solid #e94560;
+}
+
+.prompt-tool {
+  padding: 20px;
+}
+
+.prompt-input {
+  margin: 10px 0;
+}
+
+#promptInput {
+  padding: 8px;
+  font-size: 12px;
+  width: 70%;
+  max-width: 300px;
+  border: 2px solid #e94560;
+  border-radius: 4px;
+}
+
+#generateBtn {
+  padding: 8px 16px;
+  margin-left: 10px;
+}
+
+#result {
+  margin-top: 10px;
+  font-size: 14px;
 }
 
 /* NFT Gallery */
@@ -111,4 +155,35 @@ h2 {
   background: #fff;
   padding: 10px;
   border: 2px solid #e94560;
+  border-radius: 5px;
+}
+
+/* Footer */
+footer {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+footer p {
+  font-size: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  header, main, .nav, footer {
+    padding: 15px;
+  }
+  header h1 {
+    font-size: 20px;
+  }
+  .btn {
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+  .portrait {
+    max-width: 150px;
+  }
 }
