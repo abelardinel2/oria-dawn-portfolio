@@ -1,4 +1,3 @@
-// === Canvas Game ===
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = 600;
@@ -24,7 +23,7 @@ let gameActive = false;
 let difficulty = 'medium';
 let smogSpeed = 1;
 
-// Load Images
+// Load Images with Error Handling
 const oriaImg = new Image();
 oriaImg.src = '/garden/images/oria-pixel.png';
 const flowerStage1Img = new Image();
@@ -38,7 +37,6 @@ healthyTreeImg.src = '/garden/images/healthy-trees.png';
 const smogCloudImg = new Image();
 smogCloudImg.src = '/garden/images/smog-cloud.png';
 const smogOverTreesImg = new Image();
-smogOverTreesImg.src = '/garden/images/smog-over-trees.png';
 const bgForestImg = new Image();
 bgForestImg.src = '/garden/images/bg-forest.png';
 
@@ -50,14 +48,18 @@ images.forEach(img => {
     imagesLoaded++;
     if (imagesLoaded === images.length) {
       status.textContent = 'All images loaded! Select Difficulty to Start';
-      draw(); // ✅ Only draw when ready!
     }
   };
   img.onerror = () => {
-    console.error(`Failed to load: ${img.src}`);
-    status.textContent = `Error: ${img.src} failed.`;
+    console.error(`Failed to load image: ${img.src}`);
+    status.textContent = `Error: Image ${img.src} failed to load. Check the path or file.`;
   };
 });
+
+// Background
+let background = ctx.createLinearGradient(0, 0, 0, canvas.height);
+background.addColorStop(0, '#c1e1c1');
+background.addColorStop(1, '#e0f7e9');
 
 difficultySelect.addEventListener('change', (e) => {
   difficulty = e.target.value;
@@ -65,7 +67,9 @@ difficultySelect.addEventListener('change', (e) => {
 });
 
 startBtn.addEventListener('click', () => {
-  if (!gameActive) startGame();
+  if (!gameActive) {
+    startGame();
+  }
 });
 
 resetBtn.addEventListener('click', () => {
@@ -85,9 +89,18 @@ canvas.addEventListener('click', (e) => {
 
 function setDifficulty() {
   switch (difficulty) {
-    case 'easy': seedsLeft = 6; smogSpeed = 0.8; break;
-    case 'medium': seedsLeft = 5; smogSpeed = 1; break;
-    case 'hard': seedsLeft = 4; smogSpeed = 1.2; break;
+    case 'easy':
+      seedsLeft = 6;
+      smogSpeed = 0.8;
+      break;
+    case 'medium':
+      seedsLeft = 5;
+      smogSpeed = 1;
+      break;
+    case 'hard':
+      seedsLeft = 4;
+      smogSpeed = 1.2;
+      break;
   }
 }
 
@@ -107,10 +120,15 @@ function gameLoop() {
   gameInterval = setInterval(() => {
     timeLeft -= smogSpeed / 10;
     smogWidth = ((30 - timeLeft) / 30) * 100;
-    if (Math.random() < 0.1) smogWidth += 5;
+    if (Math.random() < 0.1) smogWidth += 5; // Random smog surge
     if (smogWidth > 100) smogWidth = 100;
-    if (timeLeft <= 0 || (smogWidth >= 80 && seedsLeft === 0)) endGame(false);
-    else if (flowers.length >= 3) endGame(true);
+
+    if (timeLeft <= 0 || (smogWidth >= 80 && seedsLeft === 0)) {
+      endGame(false);
+    } else if (flowers.length >= 3) {
+      endGame(true);
+    }
+
     updateHUD();
     draw();
   }, 100);
@@ -124,6 +142,19 @@ function plantSeed() {
   }
 }
 
+function waterPlant() {
+  if (plants.length > 0 && waterUses < 3) {
+    waterUses++;
+    plants[plants.length - 1].growth += 0.33;
+    plants[plants.length - 1].stage = Math.min(3, Math.floor(plants[plants.length - 1].growth * 3) + 1);
+    if (waterUses === 3) {
+      flowers.push({ x: plants[plants.length - 1].x, y: plants[plants.length - 1].y, stage: 3 });
+      plants.pop();
+    }
+    updateHUD();
+  }
+}
+
 function updateHUD() {
   hud.textContent = `Seeds: ${seedsLeft} | Smog: ${Math.floor(smogWidth)}%`;
   status.textContent = `Time Left: ${Math.ceil(timeLeft)}s`;
@@ -133,29 +164,53 @@ function updateHUD() {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw looping background
   for (let x = 0; x < canvas.width; x += bgForestImg.width) {
     ctx.drawImage(bgForestImg, x - (smogWidth / 100) * canvas.width, 0);
   }
-  oria.frame = (oria.frame + 0.1) % 3;
+
+  // Draw Oria with frame animation
+  oria.frame = (oria.frame + 0.1) % 3; // Simple frame cycle (assuming a 3-frame sprite sheet)
   ctx.drawImage(oriaImg, Math.floor(oria.frame) * oria.width, 0, oria.width, oria.height, oria.x, oria.y, oria.width, oria.height);
-  plants.forEach(p => {
+
+  // Draw Plants with growth stages
+  plants.forEach((p) => {
     let img = flowerStage1Img;
     if (p.stage === 2) img = flowerStage2Img;
     else if (p.stage === 3) img = flowerStage3Img;
     ctx.drawImage(img, p.x, p.y, 16, 16);
   });
-  flowers.forEach(f => ctx.drawImage(flowerStage3Img, f.x, f.y, 16, 16));
-  for (let x = 0; x < (smogWidth / 100) * canvas.width; x += 32) ctx.drawImage(smogOverTreesImg, x, canvas.height - 32, 16, 16);
-  for (let x = (smogWidth / 100) * canvas.width; x < canvas.width; x += 32) ctx.drawImage(healthyTreeImg, x, canvas.height - 32, 16, 16);
+
+  // Draw Flowers
+  flowers.forEach((f) => {
+    ctx.drawImage(flowerStage3Img, f.x, f.y, 16, 16);
+  });
+
+  // Draw Trees (healthy on right, smog-affected on left)
+  for (let x = 0; x < (smogWidth / 100) * canvas.width; x += 32) {
+    ctx.drawImage(smogOverTreesImg, x, canvas.height - 32, 16, 16);
+  }
+  for (let x = (smogWidth / 100) * canvas.width; x < canvas.width; x += 32) {
+    ctx.drawImage(healthyTreeImg, x, canvas.height - 32, 16, 16);
+  }
+
+  // Draw Smog overlay
   ctx.globalAlpha = 0.7;
-  for (let x = 0; x < (smogWidth / 100) * canvas.width; x += 32) ctx.drawImage(smogCloudImg, x, 0, 32, 32);
+  for (let x = 0; x < (smogWidth / 100) * canvas.width; x += 32) {
+    ctx.drawImage(smogCloudImg, x, 0, 32, 32);
+  }
   ctx.globalAlpha = 1;
 }
 
 function endGame(won) {
   clearInterval(gameInterval);
   gameActive = false;
-  status.textContent = won ? `You won! Score: ${score} 🌸` : `Smog won... Score: ${score} 🌫️`;
+  if (won) {
+    status.textContent = `You won! Score: ${score} 🌸`;
+  } else {
+    status.textContent = `Smog won... Score: ${score} 🌫️`;
+  }
   resetBtn.classList.remove('hidden');
 }
 
@@ -174,32 +229,5 @@ function resetGame() {
   draw();
 }
 
-// === Garden Grid ===
-const grid = document.getElementById('gardenGrid');
-const flowerCount = document.getElementById('flowerCount');
-const message = document.getElementById('message');
-let blooms = JSON.parse(localStorage.getItem('blooms')) || new Array(25).fill(false);
-const targetFlowers = 10;
-
-for (let i = 0; i < 25; i++) {
-  const tile = document.createElement('div');
-  tile.classList.add('tile');
-  if (blooms[i]) tile.classList.add('bloom');
-  tile.addEventListener('click', () => plantFlower(i));
-  grid.appendChild(tile);
-}
-
-function plantFlower(index) {
-  if (index >= 0) {
-    blooms[index] = !blooms[index];
-    grid.children[index].classList.toggle('bloom');
-    localStorage.setItem('blooms', JSON.stringify(blooms));
-  }
-  const count = blooms.filter(Boolean).length;
-  flowerCount.textContent = count;
-  message.textContent = count >= targetFlowers
-    ? "Garden Complete! 🌸 Mint coming soon!"
-    : `${targetFlowers - count} flowers left to bloom!`;
-}
-
-plantFlower(-1);
+// Initial draw
+draw();
