@@ -29,21 +29,21 @@ let smogSpeed = 1;
 
 // Load Images with Error Handling
 const oriaImg = new Image();
-oriaImg.src = '../pictures/Oria-pixel.png';
+oriaImg.src = './Oria-pixel.png';
 const flowerStage1Img = new Image();
-flowerStage1Img.src = '../pictures/flower-stage1.png';
+flowerStage1Img.src = './flower-stage1.png';
 const flowerStage2Img = new Image();
-flowerStage2Img.src = '../pictures/flower-stage2.png';
+flowerStage2Img.src = './flower-stage2.png';
 const flowerStage3Img = new Image();
-flowerStage3Img.src = '../pictures/flower-stage3.png';
+flowerStage3Img.src = './flower-stage3.png';
 const healthyTreeImg = new Image();
-healthyTreeImg.src = '../pictures/Healthy-trees.png';
+healthyTreeImg.src = './Healthy-trees.png';
 const smogCloudImg = new Image();
-smogCloudImg.src = '../pictures/Smog-cloud.png';
+smogCloudImg.src = './Smog-cloud.png';
 const smogOverTreesImg = new Image();
-smogOverTreesImg.src = '../pictures/Smog-over-trees.png';
+smogOverTreesImg.src = './Smog-over-trees.png';
 const bgForestImg = new Image();
-bgForestImg.src = '../pictures/bg-forest.png';
+bgForestImg.src = './bg-forest.png';
 
 const images = [oriaImg, flowerStage1Img, flowerStage2Img, flowerStage3Img, healthyTreeImg, smogCloudImg, smogOverTreesImg, bgForestImg];
 let imagesLoaded = 0;
