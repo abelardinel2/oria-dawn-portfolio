@@ -26,7 +26,7 @@ const images = {
   waterDrop: new Image()
 };
 
-images.bg.src = 'images/healthy-trees.png'; // Replaced bg-forest.png with healthy-trees.png
+images.bg.src = 'images/healthy-trees.png';
 images.plant.src = 'images/oria-pixel.png';
 images.flower1.src = 'images/flower-stage1.png';
 images.flower2.src = 'images/flower-stage2.png';
@@ -41,10 +41,13 @@ const totalImages = Object.keys(images).length;
 let flowerCount = 0;
 let waterCount = 0;
 let score = 0;
-let smogLevel = 100; // 0-100 scale
-let health = 100; // 0-100 scale
+let smogLevel = 100;
+let health = 100;
 let level = 1;
 const maxFlowers = 10;
+
+// Define sprite sizes (adjust based on your image dimensions)
+const spriteSize = 100; // Example size for consistency
 
 function loadImage(img) {
   return new Promise((resolve) => {
@@ -84,7 +87,7 @@ function startGame() {
 function drawGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw background
+  // Draw background, scaled to canvas size
   ctx.drawImage(images.bg, 0, 0, canvas.width, canvas.height);
 
   // Draw trees based on smogLevel
@@ -94,22 +97,22 @@ function drawGame() {
     ctx.drawImage(images.healthyTrees, 0, 0, canvas.width, canvas.height);
   }
 
-  // Draw plant
-  ctx.drawImage(images.plant, 50, 150);
+  // Draw plant with fixed size
+  ctx.drawImage(images.plant, 50, 150, spriteSize, spriteSize);
 
-  // Draw flowers
-  if (flowerCount >= 1) ctx.drawImage(images.flower1, 100, 150);
-  if (flowerCount >= 5) ctx.drawImage(images.flower2, 150, 150);
-  if (flowerCount >= 10) ctx.drawImage(images.flower3, 200, 150);
+  // Draw flowers with fixed size
+  if (flowerCount >= 1) ctx.drawImage(images.flower1, 100, 150, spriteSize, spriteSize);
+  if (flowerCount >= 5) ctx.drawImage(images.flower2, 150, 150, spriteSize, spriteSize);
+  if (flowerCount >= 10) ctx.drawImage(images.flower3, 200, 150, spriteSize, spriteSize);
 
-  // Draw smog
+  // Draw smog with fixed size
   const smogWidth = (smogLevel / 100) * canvas.width;
   ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
   ctx.fillRect(0, 0, smogWidth, canvas.height);
-  ctx.drawImage(images.smog, smogWidth - 50, 50, 50, 50);
+  ctx.drawImage(images.smog, smogWidth - 50, 50, spriteSize / 2, spriteSize / 2); // Smaller smog icon
 
-  // Draw water drop if available
-  if (waterCount > 0) ctx.drawImage(images.waterDrop, 300, 150);
+  // Draw water drop with fixed size
+  if (waterCount > 0) ctx.drawImage(images.waterDrop, 300, 150, spriteSize / 2, spriteSize / 2); // Smaller drop
 
   // Update UI
   flowerCountDisplay.textContent = flowerCount;
