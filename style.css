@@ -187,3 +187,14 @@ footer p {
     max-width: 150px;
   }
 }
+.bullet-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.bullet-list li::before {
+  content: "• ";
+  color: #333;
+  padding-right: 5px;
+}
